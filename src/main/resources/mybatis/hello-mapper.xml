@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mallang.squirrel.infrastructure.HelloMapper">
+    <select id="findAll" resultType="com.mallang.squirrel.domain.Hello">
+        SELECT id, title, contents, created_at, modified_at
+        FROM hello
+    </select>
+    <select id="findById" parameterType="Long" resultType="com.mallang.squirrel.domain.Hello">
+        SELECT id, title, contents, created_at, modified_at
+        FROM hello
+        WHERE id = #{id}
+    </select>
+    <insert id="save" parameterType="com.mallang.squirrel.domain.Hello">
+        <if test="id == null">
+            INSERT INTO hello
+                (title, contents, created_at, modified_at)
+            VALUE
+                (#{title}, #{contents}, NOW(), NOW())
+        </if>
+        <if test="id != null">
+            UPDATE hello
+            SET
+                title = #{title},
+                contents = #{contents},
+                modified_at = NOW()
+            WHERE id = #{id}
+        </if>
+    </insert>
+    <delete id="delete" parameterType="Long">
+        DELETE FROM hello WHERE id = #{id}
+    </delete>
+</mapper>
