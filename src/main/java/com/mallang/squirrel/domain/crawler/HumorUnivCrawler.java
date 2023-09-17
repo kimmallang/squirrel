@@ -42,7 +42,7 @@ public class HumorUnivCrawler {
 					// 썸네일 URL
 					ElementHandle imageElement = trElement.querySelector("td.li_num img");
 					if (imageElement != null) {
-						humor.setThumbnailUrl(StringUtils.trimAllWhitespace(imageElement.getAttribute("src")));
+						humor.setThumbnailUrl("http:" + StringUtils.trimAllWhitespace(imageElement.getAttribute("src")));
 					}
 
 					// 게시글 URL + 제목
