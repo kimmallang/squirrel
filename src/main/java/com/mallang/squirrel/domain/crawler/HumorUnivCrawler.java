@@ -27,6 +27,7 @@ public class HumorUnivCrawler {
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
+		log.info("웃긴대학 크롤링 시작. pageNum: {}", pageNum);
 		crawler.navigatePage(URL + (pageNum - 1), (page -> {
 			List<ElementHandle> trElementList = page.querySelectorAll("table#post_list tr");
 			if (CollectionUtils.isEmpty(trElementList)) {
@@ -86,5 +87,6 @@ public class HumorUnivCrawler {
 				}
 			});
 		}));
+		log.info("웃긴대학 크롤링 종료. pageNum: {}", pageNum);
 	}
 }

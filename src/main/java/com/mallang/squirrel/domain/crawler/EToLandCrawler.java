@@ -27,6 +27,7 @@ public class EToLandCrawler {
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
+		log.info("이토랜드 크롤링 시작. pageNum: {}", pageNum);
 		crawler.navigatePage(URL + (pageNum - 1), (page -> {
 			List<ElementHandle> liElementList = page.querySelectorAll("ul.board_list_ul > li");
 			if (CollectionUtils.isEmpty(liElementList)) {
@@ -89,5 +90,6 @@ public class EToLandCrawler {
 					}
 				});
 		}));
+		log.info("이토랜드 크롤링 종료. pageNum: {}", pageNum);
 	}
 }
