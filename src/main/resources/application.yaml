@@ -67,6 +67,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+  devtools:
+    livereload:
+      enabled: true
 
 oauth2:
   kakao:

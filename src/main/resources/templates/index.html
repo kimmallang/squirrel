@@ -1,63 +1,19 @@
 <!DOCTYPE html>
-<html>
+<!-- Default Layout Import-->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/DefaultLayout}"
+      layout:fragment="Main"
+>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>tokook</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            $(document).on('click', '#kakaoLoginBtn, #naverLoginBtn', function(){
-                const provider = $(this).data('provider');
-
-                $.ajax({
-                    url:`http://localhost:8080/api/user/login/${provider}/url`,
-                    type:'get',
-                    success: function(res) {
-                        location.href = res.data;
-                    }
-                });
-            });
-
-            $(document).on('click', '#logoutBtn', function(){
-                $.ajax({
-                    url:`http://localhost:8080/api/user/logout`,
-                    type:'get',
-                    success: function(res) {
-                        location.reload();
-                    }
-                });
-            });
-
-            $.ajax({
-                url:`http://localhost:8080/api/user/my-info`,
-                type:'get',
-                success: function(res) {
-                    $('#authorizedBy').text(res.data.authorizedBy);
-                    $('#id').text(res.data.id);
-                    $('#nickname').text(res.data.nickname);
-                    $('#profileImageUrl').text(res.data.profileImageUrl);
-                    $('#profileThumbnailUrl').text(res.data.profileThumbnailUrl);
-                    $('#userId').text(res.data.userId);
-                }
-            });
-        });
-    </script>
+    <style th:inline="css"></style>
+    <script th:inline="javascript" type="text/javascript"></script>
 </head>
+
 <body>
-    <button id="kakaoLoginBtn" data-provider="kakao">카카오로그인</button>
-    <hr />
-    <button id="naverLoginBtn" data-provider="naver">네이버로그인</button>
-    <hr />
-    <button id="logoutBtn">로그아웃</button>
-    <hr />
-    <div>
-        <span>authorizedBy:</span><span id="authorizedBy"></span><br />
-        <span>id:</span><span id="id"></span><br />
-        <span>nickname:</span><span id="nickname"></span><br />
-        <span>profileImageUrl:</span><span id="profileImageUrl"></span><br />
-        <span>profileThumbnailUrl:</span><span id="profileThumbnailUrl"></span><br />
-        <span>userId:</span><span id="userId"></span>
-    </div>
+<main>
+    dd2dd
+</main>
 </body>
 </html>

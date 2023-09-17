@@ -3,6 +3,7 @@ package com.mallang.squirrel.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mallang.squirrel.domain.auth.token.UserTokenService;
@@ -32,4 +33,15 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addMapping("/**")
 			.allowedOrigins("http://localhost:8080");
 	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/img/**",
+				"/css/**",
+				"/js/**")
+			.addResourceLocations("classpath:/static/img/",
+				"classpath:/static/css/",
+				"classpath:/static/js/");
+	}
+
 }
