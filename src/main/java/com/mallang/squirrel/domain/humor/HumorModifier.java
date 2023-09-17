@@ -24,6 +24,7 @@ public class HumorModifier {
 		}
 
 		humorRepository.save(HumorEntity.builder()
+			.originSite(humor.getOriginSite())
 			.thumbnailUrl(humor.getThumbnailUrl())
 			.title(humor.getTitle())
 			.url(humor.getUrl())
