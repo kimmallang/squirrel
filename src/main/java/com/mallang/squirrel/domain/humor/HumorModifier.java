@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class HumorModifier {
-	private static final int TOTAL_LIMIT = 30;
+	private static final int TOTAL_LIMIT = 2000;
 
 	private final HumorMapper humorMapper;
 	private final HumorRepository humorRepository;
