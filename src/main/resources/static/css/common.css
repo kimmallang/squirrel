@@ -33,13 +33,19 @@ header > div#categoryList > span { border-radius: 100px; margin-left: 4px; backg
 header > div#categoryList > span.selected { background-color: #C0FFFF; }
 
 /* left-menu */
-aside { position: fixed; top: 0; left: 0; height: 100%; padding-top: 70px; background-color: #FFF; z-index: 80; text-align: center; overflow-y: auto; }
+aside { position: fixed; top: 0; left: 0; height: 100%; padding-top: 60px; background-color: #FFF; z-index: 80; text-align: center; overflow-y: auto; }
 aside > div.aside-items-wrapper { display: inline-block; width: 260px;  }
-aside > div.aside-items-wrapper > div.aside-profile { text-align: center; padding-bottom: 20px; }
+
+aside > div.aside-items-wrapper > div.login-form { text-align: center; padding-bottom: 20px; }
+aside > div.aside-items-wrapper > div.login-form > div { display: inline-block; width: 150px; margin-bottom: 2px; }
+aside > div.aside-items-wrapper > div.login-form > div img { width: 100%; }
+
+aside > div.aside-items-wrapper > div.aside-profile { text-align: center; }
 aside > div.aside-items-wrapper > div.aside-profile > div.profile-img img { width:40%; border: 1px solid #EEE; border-radius: 50%; margin: 20px 0; }
-aside > div.aside-items-wrapper > div.aside-profile > div.login-by { margin: 0 0 20px 0; }
+aside > div.aside-items-wrapper > div.aside-profile > div.login-by { margin: 0 0 10px 0; }
+aside > div.aside-items-wrapper > div.aside-profile > div.logout { margin: 0 0 20px 0; display: inline-block; font-size: 12px; background-color: #EEE; padding: 10px 14px; border-radius: 100px; cursor: pointer; }
 aside > div.aside-items-wrapper > div.aside-profile > div.label { text-align: center; font-size: 12px; }
-aside > div.aside-items-wrapper > div.aside-profile > div.label span { display: inline-block; margin: 2px 0; padding: 8px 16px; border-radius: 50px; }
+aside > div.aside-items-wrapper > div.aside-profile > div.label span { display: inline-block; margin: 0 0 6px 0; padding: 10px 16px; border-radius: 50px; }
 
 body.menu-show aside { width: 260px; transition: width 0.3s; }
 body:not(.menu-show) aside { width: 0; transition: width 0.3s; }

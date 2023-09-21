@@ -2,21 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="AsideFragment">
     <aside>
         <div class="aside-items-wrapper">
+            <div class="login-form">
+                <div>
+                    <span>로그인</span>
+                </div>
+                <div id="kakaoLoginBtn" data-provider="kakao">
+                    <img th:src="@{/img/kakao_login.png}" />
+                </div>
+                <div id="naverLoginBtn" data-provider="naver">
+                    <img th:src="@{/img/naver_login.png}" />
+                </div>
+            </div>
             <div class="aside-profile">
                 <div class="profile-img" >
                     <img src="https://avatars.githubusercontent.com/u/88977006?s=400&u=817bed9d0e5fece572b93af3f2fd4f0fc31781c3&v=4" />
                 </div>
                 <div class="login-by">
-                    <span>Login By <span class="color-blue">bobby</span></span>
+                    <span>Login By <span class="color-blue">...</span></span>
+                </div>
+                <div class="logout">
+                    <span id="logout">로그아웃</span>
                 </div>
                 <div class="label">
-                    <span class="color-bg-blue">내가 쓴 글 30건</span>
+                    <span class="color-bg-blue">내가 쓴 글 00 건</span>
                 </div>
                 <div class="label">
-                    <span class="color-bg-green">내가 쓴 댓글 10건</span>
+                    <span class="color-bg-green">내가 쓴 댓글 00 건</span>
                 </div>
                 <div class="label">
-                    <span class="color-bg-gray">내가 좋아요한 글 42건</span>
+                    <span class="color-bg-gray">내가 좋아요한 글 00 건</span>
                 </div>
             </div>
         </div>
