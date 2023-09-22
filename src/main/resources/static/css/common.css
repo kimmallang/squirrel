@@ -36,7 +36,7 @@ header > div#categoryList > span.selected { background-color: #C0FFFF; }
 aside { position: fixed; top: 0; left: 0; height: 100%; padding-top: 60px; background-color: #FFF; z-index: 80; text-align: center; overflow-y: auto; }
 aside > div.aside-items-wrapper { display: inline-block; width: 260px;  }
 
-aside > div.aside-items-wrapper > div.login-form { text-align: center; padding-bottom: 20px; }
+aside > div.aside-items-wrapper > div.login-form { text-align: center; padding: 20px 0; }
 aside > div.aside-items-wrapper > div.login-form > div { display: inline-block; width: 150px; margin-bottom: 2px; }
 aside > div.aside-items-wrapper > div.login-form > div img { width: 100%; }
 
