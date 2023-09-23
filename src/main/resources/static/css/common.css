@@ -8,6 +8,7 @@ a { color: #323232; text-decoration: none; }
 /* color */
 .color-blue { color: #50C2FF; }
 .color-green { color: #F49A56; }
+.color-red { color: #D76464; }
 .color-gray { color: #787878; }
 .color-bg-blue { background-color: #50C2FF; color: #FFF; }
 .color-bg-green { background-color: #F49A56; color: #FFF; }
@@ -29,8 +30,8 @@ header { position: fixed; top: 0; left: 0; width: 100%; padding: 10px 0; border-
 header > div#menuBtn { position: fixed; left: 0; top: 6px; padding: 6px; color: #50C2FF; cursor: pointer; }
 header > div#menuBtn span.material-symbols-outlined { font-size: 36px; }
 header > div#categoryList { padding-top: 10px; }
-header > div#categoryList > span { border-radius: 100px; margin-left: 4px; background-color: #EEE; padding: 10px 15px; }
-header > div#categoryList > span.selected { background-color: #C0FFFF; }
+header > div#categoryList > a { border-radius: 100px; margin-left: 4px; background-color: #EEE; padding: 10px 15px; cursor: pointer; }
+header > div#categoryList > a.selected { background-color: #C0FFFF; }
 
 /* left-menu */
 aside { position: fixed; top: 0; left: 0; height: 100%; padding-top: 60px; background-color: #FFF; z-index: 80; text-align: center; overflow-y: auto; }
@@ -51,24 +52,36 @@ body.menu-show aside { width: 260px; transition: width 0.3s; }
 body:not(.menu-show) aside { width: 0; transition: width 0.3s; }
 
 /* main */
-main { display: inline-block; box-sizing: border-box; background-color: #EBFBFF; width: 100%; height: 100%; }
+main { display: inline-block; box-sizing: border-box; background-color: #EBFBFF; width: 100%; height: 100%; text-align: center; overflow-y: auto; min-width: 350px; }
 
-body.menu-show main { padding: 70px 0 0 260px; transition: padding 0.3s; }
+body.menu-show main { padding: 60px 0 0 260px; transition: padding 0.3s; }
 body:not(.menu-show) main { padding: 60px 0 0 0; transition: padding 0.3s; }
+
+/* humor */
+main > div.humor-list { display: inline-block; width: 1200px; padding: 10px; box-sizing: border-box; }
+main > div.humor-list > div.item { position: relative; top: 4px; right: 4px; text-align: left; padding: 20px; background-color: #FFF; margin-bottom: 10px; font-size: 12px; border-radius: 10px; cursor: pointer; }
+main > div.humor-list > div.item > div.origin-site { position: absolute; right: 20px; padding: 4px 10px; border-radius: 100px; color: #888; font-size: 12px; }
+main > div.humor-list > div.item > div.written-at { color: #AAA; }
+main > div.humor-list > div.item > div.title { padding: 10px 0; font-size: 14px; }
+main > div.humor-list > div.item > div.counts { text-align: right; }
+main > div.humor-list > div.item > div.counts .icon-view { font-size: 16px; margin-left: 6px; color: #50C2FF; }
+main > div.humor-list > div.item > div.counts .view-count { color: #50C2FF; }
+main > div.humor-list > div.item > div.counts .icon-like { font-size: 16px; margin-left: 6px; color: #D76464; }
+main > div.humor-list > div.item > div.counts .like-count { color: #D76464; }
 
 /* 반응형 - 모바일  */
 @media (max-width: 767px) {
     body.menu-show aside { width: 100%; }
     aside > div.aside-items-wrapper { display: inline-block; }
-    main div.kanban-board > div.board { width: 100%; }
+    main > div.humor-list { width: 100%; }
 }
 
 /* 반응형 - 태블릿 세로  */
 @media (min-width: 768px) and (max-width: 991px) {
-    main div.kanban-board > div.board { width: 100%; }
+    main > div.humor-list { width: 100%; }
 }
 
 /* 반응형 - 태블릿 가로  */
 @media (min-width: 992px) and (max-width: 1270px) {
-    main div.kanban-board > div.board { width: 100%; }
+    main > div.humor-list { width: 100%; }
 }

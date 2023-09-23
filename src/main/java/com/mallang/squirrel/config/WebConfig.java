@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mallang.squirrel.domain.auth.token.UserTokenService;
-import com.mallang.squirrel.interceptor.RefererCheckInterceptor;
+import com.mallang.squirrel.interceptor.ApiInterceptor;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -18,14 +18,16 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new RefererCheckInterceptor(squirrelConfig, userTokenService))
+		registry.addInterceptor(new ApiInterceptor(squirrelConfig, userTokenService))
 			// all
-			.addPathPatterns("/**")
+			.addPathPatterns("/api/**")
 			// swagger
 			.excludePathPatterns("/v3/api-docs")
 			.excludePathPatterns("/swagger-resources/**")
 			.excludePathPatterns("/swagger-ui/**")
-			.excludePathPatterns("/webjars/**");
+			.excludePathPatterns("/webjars/**")
+			// OAuth
+			.excludePathPatterns("/api/oauth2/callback/**");
 	}
 
 	@Override

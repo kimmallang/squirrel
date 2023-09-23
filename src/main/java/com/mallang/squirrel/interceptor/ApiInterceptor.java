@@ -13,18 +13,19 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.mallang.squirrel.config.SquirrelConfig;
 import com.mallang.squirrel.domain.auth.token.UserTokenService;
 import com.mallang.squirrel.domain.auth.user.dto.User;
+import com.mallang.squirrel.exception.NotAllowedRefererException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class RefererCheckInterceptor implements HandlerInterceptor {
+public class ApiInterceptor implements HandlerInterceptor {
 	private final SquirrelConfig squirrelConfig;
 	private final UserTokenService userTokenService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-//		if(!isAllowedReferer(request)) {
-//			throw new NotAllowedRefererException(request.getHeader("referer"));
-//		}
+		if(!isAllowedReferer(request)) {
+			throw new NotAllowedRefererException(request.getHeader("referer"));
+		}
 
 		readUtkn(request);
 
