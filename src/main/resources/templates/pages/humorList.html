@@ -7,69 +7,93 @@
       layout:fragment="Main"
 >
 <head>
-    <style th:inline="css"></style>
-    <script th:inline="javascript" type="text/javascript"></script>
+    <style th:inline="css">
+    </style>
+    <script th:inline="javascript" type="text/javascript">
+        let page = 1;
+        let pageSize = 20;
+        let isLoading = false;
+        let isLast = false;
+
+        $(function () {
+            init();
+            loadHumor();
+        });
+
+        const init = () => {
+            // url 이동 클릭 이벤트
+            $('#humor-list').on('click', '.item', function () {
+                const url = $(this).data('url');
+                window.open(url);
+            });
+
+            // 스크롤 더보기 이벤트
+            $('#humorListMain').scroll(function () {
+                const scrollTop = $(this).scrollTop();
+                const scrollHeight = $(this).height();
+                const contentHeight = $('#humor-list').height();
+                if (scrollTop + scrollHeight +1 >= contentHeight) {
+                    loadHumor();
+                }
+            });
+        }
+
+        const loadHumor = () => {
+            if (isLoading || isLast) {
+                return;
+            }
+
+            isLoading = true;
+            showLoading();
+            $.ajax({
+                url: `/api/humors`,
+                type: 'get',
+                data: {
+                    page: page,
+                    pageSize: pageSize,
+                },
+                success: function (res) {
+                    if (res.status === 'SUCCESS') {
+                        renderHumorList(res.data.humors);
+
+                        if (page >= res.data.totalPage) {
+                            isLast = true;
+                        }
+                        page++;
+                    }
+                },
+                complete: function () {
+                    isLoading = false;
+                    hideLoading();
+                }
+            });
+
+            const renderHumorList = (humors) => {
+                const humorElements = humors.map(humor => getHumorElement(humor));
+                $('#humor-list').append(humorElements);
+            }
+
+            const getHumorElement = (humor) => {
+                return $(`
+                    <div class="item" data-url="${humor.url}">
+                        <div class="origin-site">${humor.originSite}</div>
+                        <div class="written-at">${humor.writtenAt}</div>
+                        <div class="title">${humor.title}</div>
+                        <div class="counts">
+                            <span class="icon-view material-symbols-outlined">visibility</span>
+                            <span class="view-count">${humor.viewCount.toLocaleString()}</span>
+                            <span class="icon-like material-symbols-outlined">favorite</span>
+                            <span class="like-count">${humor.likeCount.toLocaleString()}</span>
+                        </div>
+                    </div>`);
+            };
+        };
+    </script>
 </head>
 
 <body>
-<main>
-    <div class="humor-list">
-        <div class="item">
-            <div class="origin-site">이토랜드</div>
-            <div class="written-at">2023-01-01 00:00</div>
-            <div class="title">제목</div>
-            <div class="counts">
-                <span class="icon-view material-symbols-outlined">visibility</span>
-                <span class="view-count">9,999</span>
-                <span class="icon-like material-symbols-outlined">favorite</span>
-                <span class="like-count">9,999</span>
-            </div>
-        </div>
-        <div class="item">
-            <div class="origin-site">이토랜드</div>
-            <div class="written-at">2023-01-01 00:00</div>
-            <div class="title">제목</div>
-            <div class="counts">
-                <span class="icon-view material-symbols-outlined">visibility</span>
-                <span class="view-count">9,999</span>
-                <span class="icon-like material-symbols-outlined">favorite</span>
-                <span class="like-count">9,999</span>
-            </div>
-        </div>
-        <div class="item">
-            <div class="origin-site">웃긴대학</div>
-            <div class="written-at">2023-01-01 00:00</div>
-            <div class="title">제목</div>
-            <div class="counts">
-                <span class="icon-view material-symbols-outlined">visibility</span>
-                <span class="view-count">9,999</span>
-                <span class="icon-like material-symbols-outlined">favorite</span>
-                <span class="like-count">9,999</span>
-            </div>
-        </div>
-        <div class="item">
-            <div class="origin-site">웃긴대학</div>
-            <div class="written-at">2023-01-01 00:00</div>
-            <div class="title">제목</div>
-            <div class="counts">
-                <span class="icon-view material-symbols-outlined">visibility</span>
-                <span class="view-count">9,999</span>
-                <span class="icon-like material-symbols-outlined">favorite</span>
-                <span class="like-count">9,999</span>
-            </div>
-        </div>
-        <div class="item">
-            <div class="origin-site">이토랜드</div>
-            <div class="written-at">2023-01-01 00:00</div>
-            <div class="title">제목</div>
-            <div class="counts">
-                <span class="icon-view material-symbols-outlined">visibility</span>
-                <span class="view-count">9,999</span>
-                <span class="icon-like material-symbols-outlined">favorite</span>
-                <span class="like-count">9,999</span>
-            </div>
-        </div>
-    </div>
+<main id="humorListMain">
+    <div id="humor-list"></div>
 </main>
 </body>
 </html>

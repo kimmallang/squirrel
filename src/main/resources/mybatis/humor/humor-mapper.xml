@@ -15,7 +15,7 @@
         FROM humor
     </select>
 
-    <select id="findAllByPageAndPageSizeOrderByIdDesc" parameterType="Map"
+    <select id="findAllByPageAndPageSizeOrderByWrittenAtDesc" parameterType="Map"
             resultType="com.mallang.squirrel.domain.humor.Humor">
         SELECT id,
                origin_site,
@@ -26,7 +26,7 @@
                view_count,
                written_at
         FROM humor
-        ORDER BY id DESC
+        ORDER BY written_at DESC
         LIMIT #{startNum}, #{pageSize}
     </select>
 </mapper>

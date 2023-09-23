@@ -1,14 +1,13 @@
 package com.mallang.squirrel.application.humor;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.mallang.squirrel.domain.humor.Humor;
 import com.mallang.squirrel.domain.humor.HumorFinder;
+import com.mallang.squirrel.domain.humor.HumorOriginSiteType;
 import com.mallang.squirrel.presentation.api.humor.HumorListView;
 import com.mallang.squirrel.presentation.api.humor.HumorView;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +34,12 @@ public class HumorService {
 	}
 
 	private HumorView convert(Humor humor) {
+		final HumorOriginSiteType originSiteType = HumorOriginSiteType.findByCode(humor.getOriginSite());
+		final String originSite = originSiteType != null ? originSiteType.getName() : "";
+
 		return HumorView.builder()
 			.id(humor.getId())
-			.originSite(humor.getOriginSite())
+			.originSite(originSite)
 			.writtenAt(humor.getWrittenAt())
 			.title(humor.getTitle())
 			.url(humor.getUrl())

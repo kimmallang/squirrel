@@ -11,5 +11,5 @@ import com.mallang.squirrel.domain.humor.Humor;
 public interface HumorMapper {
 	Integer countAll();
 	List<Long> findAllByOrderByCreatedAtAsc(int limit);
-	List<Humor> findAllByPageAndPageSizeOrderByIdDesc(Map<String, Integer> params);
+	List<Humor> findAllByPageAndPageSizeOrderByWrittenAtDesc(Map<String, Integer> params);
 }

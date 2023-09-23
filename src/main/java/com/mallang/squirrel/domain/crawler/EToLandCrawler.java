@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import com.mallang.squirrel.domain.humor.Humor;
 import com.mallang.squirrel.domain.humor.HumorModifier;
+import com.mallang.squirrel.domain.humor.HumorOriginSiteType;
 import com.mallang.squirrel.infrastructure.crawler.Crawler;
 import com.mallang.squirrel.util.LocalDateTimeUtil;
 import com.mallang.squirrel.util.StringUtil;
@@ -19,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 @RequiredArgsConstructor
 public class EToLandCrawler {
-	private static final String ORIGIN_SITE = "etoland";
+	private static final HumorOriginSiteType ORIGIN_SITE = HumorOriginSiteType.ETOLAND;
 	private static final String ORIGIN = "https://www.etoland.co.kr/";
 	private static final String URL = ORIGIN + "/bbs/board.php?bo_table=etohumor06&sca=%C0%AF%B8%D3&sfl=top_n&stx=day&sst=wr_good&sod=desc&page=";
 
@@ -42,7 +43,7 @@ public class EToLandCrawler {
 				.forEach(liElement -> {
 					try {
 						Humor humor = new Humor();
-						humor.setOriginSite(ORIGIN_SITE);
+						humor.setOriginSite(ORIGIN_SITE.getCode());
 
 						// 게시글 URL + 제목
 						List<ElementHandle> subjectElementList = liElement.querySelectorAll("div.subject a");

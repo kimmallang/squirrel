@@ -21,7 +21,7 @@ public class HumorFinder {
 		params.put("startNum", pageSize * (page - 1));
 		params.put("pageSize", pageSize);
 
-		final List<Humor> humorList = humorMapper.findAllByPageAndPageSizeOrderByIdDesc(params);
+		final List<Humor> humorList = humorMapper.findAllByPageAndPageSizeOrderByWrittenAtDesc(params);
 
 		return Optional.ofNullable(humorList).orElse(Collections.emptyList());
 	}

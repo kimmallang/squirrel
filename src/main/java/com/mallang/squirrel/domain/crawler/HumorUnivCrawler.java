@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import com.mallang.squirrel.domain.humor.Humor;
 import com.mallang.squirrel.domain.humor.HumorModifier;
+import com.mallang.squirrel.domain.humor.HumorOriginSiteType;
 import com.mallang.squirrel.infrastructure.crawler.Crawler;
 import com.mallang.squirrel.util.LocalDateTimeUtil;
 import com.mallang.squirrel.util.StringUtil;
@@ -19,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 @RequiredArgsConstructor
 public class HumorUnivCrawler {
-	private static final String ORIGIN_SITE = "humoruniv";
+	private static final HumorOriginSiteType ORIGIN_SITE = HumorOriginSiteType.HUMORUNIV;
 	private static final String ORIGIN = "http://web.humoruniv.com/board/humor";
 	private static final String URL = ORIGIN + "/list.html?table=pds&st=day&pg=";
 
@@ -37,7 +38,7 @@ public class HumorUnivCrawler {
 			trElementList.forEach(trElement -> {
 				try {
 					Humor humor = new Humor();
-					humor.setOriginSite(ORIGIN_SITE);
+					humor.setOriginSite(ORIGIN_SITE.getCode());
 
 					// 썸네일 URL
 					ElementHandle imageElement = trElement.querySelector("td.li_num img");

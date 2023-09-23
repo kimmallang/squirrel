@@ -101,6 +101,7 @@ const initLogin = () => {
     login();
 };
 
+// 쿠키
 const getCookie = (key) => {
     if (!document.cookie) {
         return '';
@@ -117,3 +118,14 @@ const getCookie = (key) => {
 
     return '';
 };
+
+// 로딩
+const showLoading = () => {
+    $('#dimmed').show();
+    $('#loading').show();
+}
+
+const hideLoading = () => {
+    $('#dimmed').hide();
+    $('#loading').hide();
+}
