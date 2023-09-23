@@ -2,10 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mallang.squirrel.infrastructure.humor.HumorMapper">
+
     <select id="findAllByOrderByCreatedAtAsc" parameterType="Integer" resultType="Long">
-        SELECT id FROM humor ORDER BY created_at LIMIT #{limit}
+        SELECT id
+        FROM humor
+        ORDER BY created_at
+        LIMIT #{limit}
     </select>
+
     <select id="countAll" resultType="Integer">
-        SELECT COUNT(1) FROM humor
+        SELECT COUNT(1)
+        FROM humor
+    </select>
+
+    <select id="findAllByPageAndPageSizeOrderByIdDesc" parameterType="Map"
+            resultType="com.mallang.squirrel.domain.humor.Humor">
+        SELECT id,
+               origin_site,
+               thumbnail_url,
+               title,
+               url,
+               like_count,
+               view_count,
+               written_at
+        FROM humor
+        ORDER BY id DESC
+        LIMIT #{startNum}, #{pageSize}
     </select>
 </mapper>
