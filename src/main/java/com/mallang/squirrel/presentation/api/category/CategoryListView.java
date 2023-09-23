@@ -1,4 +1,4 @@
-package com.mallang.squirrel.presentation.category;
+package com.mallang.squirrel.presentation.api.category;
 
 import java.util.List;
 

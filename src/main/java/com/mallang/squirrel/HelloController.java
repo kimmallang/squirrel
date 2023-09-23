@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mallang.squirrel.domain.Hello;
 import com.mallang.squirrel.infrastructure.HelloMapper;
-import com.mallang.squirrel.presentation.ApiResponse;
+import com.mallang.squirrel.presentation.api.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

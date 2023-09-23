@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.classmate.TypeResolver;
-import com.mallang.squirrel.presentation.ApiResponse;
+import com.mallang.squirrel.presentation.api.ApiResponse;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -25,12 +25,12 @@ public class SwaggerConfig {
 			)
 			.useDefaultResponseMessages(false)
 			.select()
-			.apis(RequestHandlerSelectors.basePackage("com.mallang.squirrel.presentation"))
+			.apis(RequestHandlerSelectors.basePackage("com.mallang.squirrel.presentation.api"))
 			.paths(PathSelectors.any())
 			.build()
 			.apiInfo(new ApiInfoBuilder()
-				.title("Todook API")
-				.description("Todook API 입니다.")
+				.title("Squirrel API")
+				.description("Squirrel API 입니다.")
 				.build());
 	}
 }

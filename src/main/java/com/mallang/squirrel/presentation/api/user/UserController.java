@@ -1,4 +1,4 @@
-package com.mallang.squirrel.presentation.user;
+package com.mallang.squirrel.presentation.api.user;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mallang.squirrel.domain.auth.AuthService;
 import com.mallang.squirrel.domain.auth.oauth2.dto.OAuth2Provider;
 import com.mallang.squirrel.domain.auth.user.dto.User;
-import com.mallang.squirrel.presentation.ApiResponse;
-import com.mallang.squirrel.presentation.document.ErrorResponse400_404_500;
+import com.mallang.squirrel.presentation.api.ApiResponse;
+import com.mallang.squirrel.presentation.api.document.ErrorResponse400_404_500;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

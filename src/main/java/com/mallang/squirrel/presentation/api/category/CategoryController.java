@@ -1,4 +1,4 @@
-package com.mallang.squirrel.presentation.category;
+package com.mallang.squirrel.presentation.api.category;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mallang.squirrel.exception.BadRequestException;
 import com.mallang.squirrel.exception.NotFoundException;
-import com.mallang.squirrel.presentation.ApiResponse;
-import com.mallang.squirrel.presentation.document.ErrorResponse400_403_404_500;
-import com.mallang.squirrel.presentation.document.ErrorResponse400_404_500;
+import com.mallang.squirrel.presentation.api.ApiResponse;
+import com.mallang.squirrel.presentation.api.document.ErrorResponse400_403_404_500;
+import com.mallang.squirrel.presentation.api.document.ErrorResponse400_404_500;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 

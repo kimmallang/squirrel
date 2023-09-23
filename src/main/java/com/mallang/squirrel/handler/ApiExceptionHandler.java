@@ -8,8 +8,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.mallang.squirrel.exception.BadRequestException;
 import com.mallang.squirrel.exception.NotAllowedRefererException;
 import com.mallang.squirrel.exception.NotFoundException;
-import com.mallang.squirrel.presentation.ApiResponse;
-import com.mallang.squirrel.presentation.ApiResponseStatus;
+import com.mallang.squirrel.presentation.api.ApiResponse;
+import com.mallang.squirrel.presentation.api.ApiResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

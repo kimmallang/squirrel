@@ -1,4 +1,4 @@
-package com.mallang.squirrel.presentation;
+package com.mallang.squirrel.presentation.api;
 
 import org.springframework.http.HttpStatus;
 
