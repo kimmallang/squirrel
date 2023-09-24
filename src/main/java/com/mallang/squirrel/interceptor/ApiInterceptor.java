@@ -60,6 +60,10 @@ public class ApiInterceptor implements HandlerInterceptor {
 			if (cookie.getName().equals("utkn")) {
 				String utkn = cookie.getValue();
 				if (StringUtils.hasLength(utkn)) {
+					if (userTokenService.isExpired(utkn)) {
+						return;
+					}
+
 					final User userDto = userTokenService.convertUtkn(utkn);
 					request.setAttribute("user", userDto);
 					return;
