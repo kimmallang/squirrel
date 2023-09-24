@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class HumorModifier {
-	private static final int TOTAL_LIMIT = 2000;
+	private static final int TOTAL_LIMIT = 5_000;
 
 	private final HumorMapper humorMapper;
 	private final HumorRepository humorRepository;
@@ -23,7 +23,7 @@ public class HumorModifier {
 			return;
 		}
 
-		humorRepository.save(HumorEntity.builder()
+		HumorEntity humorEntity = HumorEntity.builder()
 			.originSite(humor.getOriginSite())
 			.thumbnailUrl(humor.getThumbnailUrl())
 			.title(humor.getTitle())
@@ -31,7 +31,14 @@ public class HumorModifier {
 			.likeCount(humor.getLikeCount())
 			.viewCount(humor.getViewCount())
 			.writtenAt(humor.getWrittenAt())
-			.build());
+			.build();
+
+		Long id = humorMapper.findIdByTitle(humor.getTitle());
+		if (id != null && id > 0) {
+			humorEntity.setId(id);
+		}
+
+		humorRepository.save(humorEntity);
 
 		this.removeOverLimit();
 	}

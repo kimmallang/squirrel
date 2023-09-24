@@ -3,16 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mallang.squirrel.infrastructure.humor.HumorMapper">
 
+    <select id="findIdByTitle" parameterType="String" resultType="Long">
+        SELECT id FROM humor WHERE title = #{title} LIMIT 1
+    </select>
+
     <select id="findAllByOrderByCreatedAtAsc" parameterType="Integer" resultType="Long">
-        SELECT id
-        FROM humor
-        ORDER BY created_at
-        LIMIT #{limit}
+        SELECT id FROM humor ORDER BY created_at LIMIT #{limit}
     </select>
 
     <select id="countAll" resultType="Integer">
-        SELECT COUNT(1)
-        FROM humor
+        SELECT COUNT(1) FROM humor
     </select>
 
     <select id="findAllByPageAndPageSizeOrderByWrittenAtDesc" parameterType="Map"

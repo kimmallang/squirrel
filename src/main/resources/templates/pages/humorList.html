@@ -77,7 +77,7 @@
                 return $(`
                     <div class="item" data-url="${humor.url}">
                         <div class="origin-site">${humor.originSite}</div>
-                        <div class="written-at">${humor.writtenAt}</div>
+                        <div class="written-at">${humor.writtenAt.replaceAll(" 00:00:00", "")}</div>
                         <div class="title">${humor.title}</div>
                         <div class="counts">
                             <span class="icon-view material-symbols-outlined">visibility</span>
