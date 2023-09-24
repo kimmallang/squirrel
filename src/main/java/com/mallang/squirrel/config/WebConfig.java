@@ -1,5 +1,6 @@
 package com.mallang.squirrel.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 public class WebConfig implements WebMvcConfigurer {
 	private final SquirrelConfig squirrelConfig;
 	private final UserTokenService userTokenService;
+
+	@Value("${origin}")
+	private String origin;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -33,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOrigins("http://localhost:8080");
+			.allowedOrigins(origin);
 	}
 
 	@Override

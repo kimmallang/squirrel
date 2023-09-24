@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +28,21 @@ public class OAuth2Controller {
 	private final int UTKN_MAX_AGE = 60 * 60 * 24 * 7;
 	private final AuthService authService;
 
+	@Value("${origin}")
+	private String origin;
+
 	@GetMapping("/callback/{provider}")
 	public ResponseEntity<Object> callback(@PathVariable OAuth2Provider provider, String code,
 		HttpServletResponse response) throws URISyntaxException {
 		final String utkn = authService.getUserToken(provider, code);
 
-		final URI redirectUri = new URI("http://localhost:8080");
+		final URI redirectUri = new URI(origin);
 		final HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(redirectUri);
 
 		Cookie utknCookie = new Cookie("utkn", utkn);
 		utknCookie.setMaxAge(UTKN_MAX_AGE);
-		utknCookie.setPath("/"); // todo 수정해야함
+		utknCookie.setPath("/");
 		response.addCookie(utknCookie);
 
 		return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
