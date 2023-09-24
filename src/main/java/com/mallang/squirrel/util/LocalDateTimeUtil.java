@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LocalDateTimeUtil {
 	private static final DateTimeFormatter YYYY = DateTimeFormatter.ofPattern("yyyy");
 	private static final DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final DateTimeFormatter YYYY_MM_DD_HH = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
 	private static final DateTimeFormatter YYYY_MM_DD_HH_mm = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private static final DateTimeFormatter YYYY_MM_DD_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	private static final DateTimeFormatter YYYY_MM_DD_HH_mm_ss_SSS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -49,7 +50,7 @@ public class LocalDateTimeUtil {
 	/**
 	 * 날짜 변환
 	 * @param dateOrTime "01-01" or "01:01"
-	 * @return
+	 * @return LocalDateTime
 	 */
 	public static LocalDateTime parse(String dateOrTime) {
 		try {
@@ -70,6 +71,41 @@ public class LocalDateTimeUtil {
 			return null;
 		} catch (Exception e) {
 			log.error("날짜 파싱 에러. dateOrTime={}", dateOrTime, e);
+			return null;
+		}
+	}
+
+	/**
+	 * 날짜 변환
+	 * @param timeStr "0분전" or "0시간전" or "0일전"
+	 * @return LocalDateTime
+	 */
+	public static LocalDateTime parseType2(String timeStr) {
+		try {
+			timeStr = StringUtils.trimAllWhitespace(timeStr);
+
+			if (!StringUtils.hasText(timeStr)) {
+				return null;
+			}
+
+			if (timeStr.contains("분전")) {
+				int minutes = Integer.parseInt(timeStr.replaceAll("분전", ""));
+				return LocalDateTime.now().minusMinutes(minutes);
+			}
+
+			if (timeStr.contains("시간전")) {
+				int hours = Integer.parseInt(timeStr.replaceAll("시간전", ""));
+				return LocalDateTime.parse(LocalDateTime.now().format(YYYY_MM_DD_HH), YYYY_MM_DD_HH).minusHours(hours);
+			}
+
+			if (timeStr.contains("일전")) {
+				int days = Integer.parseInt(timeStr.replaceAll("일전", ""));
+				return LocalDateTime.parse(LocalDateTime.now().format(YYYY_MM_DD), YYYY_MM_DD).minusDays(days);
+			}
+
+			return null;
+		} catch (Exception e) {
+			log.error("날짜 파싱 에러. timeStr={}", timeStr, e);
 			return null;
 		}
 	}

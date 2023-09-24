@@ -49,7 +49,7 @@ public class HumorUnivCrawler {
 					// 게시글 URL + 제목
 					ElementHandle subjectElement = trElement.querySelector("td.li_sbj a");
 					if (subjectElement != null) {
-						// 게시글 URLs
+						// 게시글 URL
 						String urlPath = StringUtils.trimAllWhitespace(subjectElement.getAttribute("href"));
 						if (urlPath != null) {
 							humor.setUrl(ORIGIN + "/" + urlPath);

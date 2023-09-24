@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mallang.squirrel.infrastructure.accident.AccidentMapper">
+
+    <select id="findIdByTitle" parameterType="String" resultType="Long">
+        SELECT id FROM accident WHERE title = #{title} LIMIT 1
+    </select>
+
+    <select id="findAllByOrderByCreatedAtAsc" parameterType="Integer" resultType="Long">
+        SELECT id FROM accident ORDER BY created_at LIMIT #{limit}
+    </select>
+
+    <select id="countAll" resultType="Integer">
+        SELECT COUNT(1) FROM accident
+    </select>
+
+    <select id="findAllByPageAndPageSizeOrderByWrittenAtDesc" parameterType="Map"
+            resultType="com.mallang.squirrel.domain.accident.Accident">
+        SELECT id,
+               origin_site,
+               thumbnail_url,
+               title,
+               url,
+               written_at
+        FROM accident
+        ORDER BY written_at DESC
+        LIMIT #{startNum}, #{pageSize}
+    </select>
+</mapper>

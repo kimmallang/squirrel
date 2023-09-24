@@ -48,7 +48,7 @@ public class HumorModifier {
 	}
 
 	/**
-	 * DB 게시글 최대 수를 2,000 개(TOTAL_LIMIT)로 유지하기위해 예전 글들은 삭제
+	 * DB 게시글 최대 수를 {TOTAL_LIMIT} 로 유지하기위해 예전 글들은 삭제
 	 */
 	private void removeOverLimit() {
 		int totalCount = humorMapper.countAll();
