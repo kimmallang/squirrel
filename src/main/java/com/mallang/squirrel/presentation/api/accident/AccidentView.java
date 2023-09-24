@@ -17,7 +17,7 @@ public class AccidentView {
 	private final String originSite;
 
 	@Schema(description = "작성일시")
-	@JsonFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss", timezone = "Asia/Seoul")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private final LocalDateTime writtenAt;
 
 	@Schema(description = "제목")

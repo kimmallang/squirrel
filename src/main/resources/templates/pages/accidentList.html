@@ -17,28 +17,28 @@
 
         $(function () {
             init();
-            loadHumor();
+            loadAccident();
         });
 
         const init = () => {
             // url 이동 클릭 이벤트
-            $('#humor-list').on('click', '.item', function () {
+            $('#accident-list').on('click', '.item', function () {
                 const url = $(this).data('url');
                 window.open(url);
             });
 
             // 스크롤 더보기 이벤트
-            $('#humorListMain').scroll(function () {
+            $('#accidentListMain').scroll(function () {
                 const scrollTop = $(this).scrollTop();
                 const scrollHeight = $(this).height();
-                const contentHeight = $('#humor-list').height();
+                const contentHeight = $('#accident-list').height();
                 if (scrollTop + scrollHeight +1 >= contentHeight) {
-                    loadHumor();
+                    loadAccident();
                 }
             });
         }
 
-        const loadHumor = () => {
+        const loadAccident = () => {
             if (isLoading || isLast) {
                 return;
             }
@@ -46,7 +46,7 @@
             isLoading = true;
             showLoading();
             $.ajax({
-                url: `/api/humors`,
+                url: `/api/accidents`,
                 type: 'get',
                 data: {
                     page: page,
@@ -54,7 +54,7 @@
                 },
                 success: function (res) {
                     if (res.status === 'SUCCESS') {
-                        renderHumorList(res.data.humors);
+                        renderAccidentList(res.data.accidents);
 
                         if (page >= res.data.totalPage) {
                             isLast = true;
@@ -68,23 +68,17 @@
                 }
             });
 
-            const renderHumorList = (humors) => {
-                const humorElements = humors.map(humor => getHumorElement(humor));
-                $('#humor-list').append(humorElements);
+            const renderAccidentList = (accidents) => {
+                const accidentElements = accidents.map(accident => getAccidentElement(accident));
+                $('#accident-list').append(accidentElements);
             }
 
-            const getHumorElement = (humor) => {
+            const getAccidentElement = (accident) => {
                 return $(`
-                    <div class="item" data-url="${humor.url}">
-                        <div class="origin-site">${humor.originSite}</div>
-                        <div class="written-at">${humor.writtenAt}</div>
-                        <div class="title">${humor.title}</div>
-                        <div class="counts">
-                            <span class="icon-view material-symbols-outlined">visibility</span>
-                            <span class="view-count">${humor.viewCount.toLocaleString()}</span>
-                            <span class="icon-like material-symbols-outlined">favorite</span>
-                            <span class="like-count">${humor.likeCount.toLocaleString()}</span>
-                        </div>
+                    <div class="item" data-url="${accident.url}">
+                        <div class="origin-site">${accident.originSite}</div>
+                        <div class="written-at">${accident.writtenAt}</div>
+                        <div class="title">${accident.title}</div>
                     </div>`);
             };
         };
@@ -92,8 +86,8 @@
 </head>
 
 <body>
-<main id="humorListMain">
-    <div id="humor-list" class="item-list"></div>
+<main id="accidentListMain">
+    <div id="accident-list" class="item-list"></div>
 </main>
 </body>
 </html>

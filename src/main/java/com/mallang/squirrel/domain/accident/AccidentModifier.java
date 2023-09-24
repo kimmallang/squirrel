@@ -32,11 +32,9 @@ public class AccidentModifier {
 			.build();
 
 		Long id = accidentMapper.findIdByTitle(accident.getTitle());
-		if (id != null && id > 0) {
-			accidentEntity.setId(id);
+		if (id == null || id == 0) {
+			accidentRepository.save(accidentEntity);
 		}
-
-		accidentRepository.save(accidentEntity);
 
 		this.removeOverLimit();
 	}

@@ -58,32 +58,32 @@ body.menu-show main { padding: 60px 0 0 260px; transition: padding 0.3s; }
 body:not(.menu-show) main { padding: 60px 0 0 0; transition: padding 0.3s; }
 
 /* humor */
-main > div#humor-list { display: inline-block; width: 1200px; padding: 10px; box-sizing: border-box; }
-main > div#humor-list > div.item { position: relative; top: 4px; right: 4px; text-align: left; padding: 20px; background-color: #FFF; margin-bottom: 10px; font-size: 12px; border-radius: 10px; min-width: 300px; cursor: pointer; }
-main > div#humor-list > div.item > div.origin-site { position: absolute; right: 20px; padding: 4px 10px; border-radius: 100px; color: #888; font-size: 12px; }
-main > div#humor-list > div.item > div.written-at { color: #AAA; }
-main > div#humor-list > div.item > div.title { padding: 10px 0; font-size: 14px; }
-main > div#humor-list > div.item > div.counts { text-align: right; }
-main > div#humor-list > div.item > div.counts .icon-view { font-size: 16px; margin-left: 6px; color: #50C2FF; }
-main > div#humor-list > div.item > div.counts .view-count { color: #50C2FF; }
-main > div#humor-list > div.item > div.counts .icon-like { font-size: 16px; margin-left: 6px; color: #D76464; }
-main > div#humor-list > div.item > div.counts .like-count { color: #D76464; }
+main > div.item-list { display: inline-block; width: 1200px; padding: 10px; box-sizing: border-box; }
+main > div.item-list > div.item { position: relative; top: 4px; right: 4px; text-align: left; padding: 20px; background-color: #FFF; margin-bottom: 10px; font-size: 12px; border-radius: 10px; min-width: 300px; cursor: pointer; }
+main > div.item-list > div.item > div.origin-site { position: absolute; right: 20px; padding: 4px 10px; border-radius: 100px; color: #888; font-size: 12px; }
+main > div.item-list > div.item > div.written-at { color: #AAA; }
+main > div.item-list > div.item > div.title { padding: 10px 0; font-size: 14px; }
+main > div.item-list > div.item > div.counts { text-align: right; }
+main > div.item-list > div.item > div.counts .icon-view { font-size: 16px; margin-left: 6px; color: #50C2FF; }
+main > div.item-list > div.item > div.counts .view-count { color: #50C2FF; }
+main > div.item-list > div.item > div.counts .icon-like { font-size: 16px; margin-left: 6px; color: #D76464; }
+main > div.item-list > div.item > div.counts .like-count { color: #D76464; }
 
 /* 반응형 - 모바일  */
 @media (max-width: 767px) {
     body.menu-show aside { width: 100%; }
     aside > div.aside-items-wrapper { display: inline-block; }
-    main > div#humor-list { width: 100%; }
+    main > div.item-list { width: 100%; }
 }
 
 /* 반응형 - 태블릿 세로  */
 @media (min-width: 768px) and (max-width: 991px) {
-    main > div#humor-list { width: 100%; }
+    main > div.item-list { width: 100%; }
 }
 
 /* 반응형 - 태블릿 가로  */
 @media (min-width: 992px) and (max-width: 1270px) {
-    main > div#humor-list { width: 100%; }
+    main > div.item-list { width: 100%; }
 }
 
 /* loading */

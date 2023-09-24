@@ -1,4 +1,4 @@
-package com.mallang.squirrel.view;
+package com.mallang.squirrel.presentation.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 	@GetMapping("/")
 	public String index() {
-		return "index";
+		return "pages/humorList";
 	}
 }
