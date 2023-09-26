@@ -1,7 +1,9 @@
 package com.mallang.squirrel.domain.crawler;
 
-import java.util.List;
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -9,10 +11,8 @@ import org.springframework.util.StringUtils;
 import com.mallang.squirrel.domain.humor.Humor;
 import com.mallang.squirrel.domain.humor.HumorModifier;
 import com.mallang.squirrel.domain.humor.HumorOriginSiteType;
-import com.mallang.squirrel.infrastructure.crawler.Crawler;
 import com.mallang.squirrel.util.LocalDateTimeUtil;
 import com.mallang.squirrel.util.StringUtil;
-import com.microsoft.playwright.ElementHandle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,13 +24,13 @@ public class HumorUnivCrawler {
 	private static final String ORIGIN = "http://web.humoruniv.com/board/humor";
 	private static final String URL = ORIGIN + "/list.html?table=pds&st=day&pg=";
 
-	private final Crawler crawler;
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
 		log.info("웃긴대학 크롤링 시작. pageNum: {}", pageNum);
-		crawler.navigatePage(URL + (pageNum - 1), (page -> {
-			List<ElementHandle> trElementList = page.querySelectorAll("table#post_list tr");
+		try {
+			final Document document = Jsoup.connect(URL + (pageNum - 1)).get();
+			Elements trElementList = document.select("table#post_list tr");
 			if (CollectionUtils.isEmpty(trElementList)) {
 				return;
 			}
@@ -41,53 +41,55 @@ public class HumorUnivCrawler {
 					humor.setOriginSite(ORIGIN_SITE.getCode());
 
 					// 썸네일 URL
-					ElementHandle imageElement = trElement.querySelector("td.li_num img");
+					Element imageElement = trElement.selectFirst("td.li_num img");
 					if (imageElement != null) {
-						humor.setThumbnailUrl("http:" + StringUtils.trimAllWhitespace(imageElement.getAttribute("src")));
+						humor.setThumbnailUrl("http:" + StringUtils.trimAllWhitespace(imageElement.attr("src")));
 					}
 
 					// 게시글 URL + 제목
-					ElementHandle subjectElement = trElement.querySelector("td.li_sbj a");
+					Element subjectElement = trElement.selectFirst("td.li_sbj a");
 					if (subjectElement != null) {
 						// 게시글 URL
-						String urlPath = StringUtils.trimAllWhitespace(subjectElement.getAttribute("href"));
+						String urlPath = StringUtils.trimAllWhitespace(subjectElement.attr("href"));
 						if (urlPath != null) {
 							humor.setUrl(ORIGIN + "/" + urlPath);
 						}
 						// 제목
-						ElementHandle titleElement = subjectElement.querySelector("span");
+						Element titleElement = subjectElement.selectFirst("span");
 						if (titleElement != null) {
-							humor.setTitle(StringUtils.trimWhitespace(titleElement.innerText()));
+							humor.setTitle(StringUtils.trimWhitespace(titleElement.text()));
 						}
 					}
 
 					// 작성일시
-					ElementHandle dateElement = trElement.querySelector("td.li_date span.w_date");
-					ElementHandle timeElement = trElement.querySelector("td.li_date span.w_time");
+					Element dateElement = trElement.selectFirst("td.li_date span.w_date");
+					Element timeElement = trElement.selectFirst("td.li_date span.w_time");
 					if (dateElement != null && timeElement != null) {
-						String dateStr = StringUtils.trimAllWhitespace(dateElement.innerText());
-						String timeStr = StringUtils.trimAllWhitespace(timeElement.innerText());
+						String dateStr = StringUtils.trimAllWhitespace(dateElement.text());
+						String timeStr = StringUtils.trimAllWhitespace(timeElement.text());
 						humor.setWrittenAt(LocalDateTimeUtil.parse(dateStr, timeStr));
 					}
 
 					// 조회수 + 추천수
-					List<ElementHandle> countElementList = trElement.querySelectorAll("td.li_und");
+					Elements countElementList = trElement.select("td.li_und");
 					if (!CollectionUtils.isEmpty(countElementList) && countElementList.size() > 1) {
 						// 조회수
-						ElementHandle viewCountElement = countElementList.get(0);
-						humor.setViewCount(StringUtil.parseInteger(viewCountElement.innerText()));
+						Element viewCountElement = countElementList.get(0);
+						humor.setViewCount(StringUtil.parseInteger(viewCountElement.text()));
 						// 추천수
-						ElementHandle likeCountElement = countElementList.get(1);
-						humor.setLikeCount(StringUtil.parseInteger(likeCountElement.innerText()));
+						Element likeCountElement = countElementList.get(1);
+						humor.setLikeCount(StringUtil.parseInteger(likeCountElement.text()));
 					}
 
 					// DB 저장
-					humorModifier.save(humor);
+//					humorModifier.save(humor);
 				} catch (Exception e) {
 					log.error("웃긴대학 > 웃긴자료 > 오늘베스트 크롤링 실패.", e);
 				}
 			});
-		}));
+		} catch (Exception e) {
+			log.info("웃긴대학 크롤링 실패. pageNum: {}", pageNum, e);
+		}
 		log.info("웃긴대학 크롤링 종료. pageNum: {}", pageNum);
 	}
 }

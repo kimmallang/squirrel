@@ -6,9 +6,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.mallang.squirrel.domain.humor.HumorModifier;
-import com.mallang.squirrel.infrastructure.crawler.Crawler;
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.Playwright;
 
 @ExtendWith(MockitoExtension.class)
 public class EToLandCrawlerTest {
@@ -17,13 +14,8 @@ public class EToLandCrawlerTest {
 
 	@Test
 	public void test() {
-		Playwright playwright = Playwright.create();
+		EToLandCrawler eToLandCrawler = new EToLandCrawler(humorModifier);
 
-		try (playwright; Browser browser = playwright.chromium().launch()) {
-			Crawler crawler = new Crawler(browser);
-			EToLandCrawler eToLandCrawler = new EToLandCrawler(crawler, humorModifier);
-
-			eToLandCrawler.crawl(1);
-		}
+		eToLandCrawler.crawl(1);
 	}
 }

@@ -8,9 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.Playwright;
-
 @EnableWebMvc
 @Configuration
 public class BaseConfig {
@@ -31,15 +28,5 @@ public class BaseConfig {
 		final RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 		return restTemplate;
-	}
-
-	@Bean
-	public Playwright playwright() {
-		return Playwright.create();
-	}
-
-	@Bean
-	public Browser browser(Playwright playwright) {
-		return playwright.chromium().launch();
 	}
 }
