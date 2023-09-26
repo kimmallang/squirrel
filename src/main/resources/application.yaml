@@ -10,6 +10,10 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: none
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 
 mybatis:
   type-aliases-package: com.mallang.squirrel # xml 파일 result type 에 패키지명을 생략할 수 있도록 alias 설정
