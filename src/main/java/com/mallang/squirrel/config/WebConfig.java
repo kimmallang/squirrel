@@ -37,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOrigins(origin);
+			.allowedOrigins("https://squirrel-production.up.railway.apps");
 	}
 
 	@Override
