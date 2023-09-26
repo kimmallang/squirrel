@@ -27,8 +27,8 @@ public class AuthService {
 		final String accessToken = oAuth2Service.getAccessToken(code);
 		final User user = oAuth2Service.getUser(accessToken);
 		final Long id = userService.save(user);
-		final User savedUser = userService.get(id);
+		user.setId(id);
 
-		return userTokenService.generateUtkn(savedUser);
+		return userTokenService.generateUtkn(user);
 	}
 }
