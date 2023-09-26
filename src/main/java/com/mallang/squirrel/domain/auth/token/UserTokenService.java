@@ -45,7 +45,7 @@ public class UserTokenService {
 			final String decrypted = AES256.decrypt(decodedUtkn.substring(splitIndex + 1));
 			final long id = Long.parseLong(decrypted.split(DELIMITER)[0]);
 			final User user = objectMapper.readValue(userDtoString, User.class);
-			log.errors(userDtoString);
+			log.error(userDtoString);
 
 			if (user.getId() != id) {
 				log.error("UserTokenService.convertUtkn({}) fail. Invalid Token", utkn);
