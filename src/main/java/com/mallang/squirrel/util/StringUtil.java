@@ -14,7 +14,7 @@ public class StringUtil {
 
 			return Integer.parseInt(StringUtils.trimAllWhitespace(number).replaceAll(",", ""));
 		} catch (Exception e) {
-			log.error("StringUtil.parseNumber() 실패. number: {}", number, e);
+			log.error("StringUtil.parseNumber() fail. number: {}", number, e);
 			return null;
 		}
 	}

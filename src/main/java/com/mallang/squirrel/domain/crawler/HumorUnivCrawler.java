@@ -27,7 +27,7 @@ public class HumorUnivCrawler {
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
-		log.info("웃긴대학 크롤링 시작. pageNum: {}", pageNum);
+		log.info("HumorUniv crawling start. pageNum: {}", pageNum);
 		try {
 			final Document document = Jsoup.connect(URL + (pageNum - 1)).get();
 			Elements trElementList = document.select("table#post_list tr");
@@ -84,12 +84,12 @@ public class HumorUnivCrawler {
 					// DB 저장
 					humorModifier.save(humor);
 				} catch (Exception e) {
-					log.error("웃긴대학 > 웃긴자료 > 오늘베스트 크롤링 실패.", e);
+					log.error("HumorUniv > funny > Today's best crawling fail.", e);
 				}
 			});
 		} catch (Exception e) {
-			log.info("웃긴대학 크롤링 실패. pageNum: {}", pageNum, e);
+			log.info("HumorUniv crawling fail. pageNum: {}", pageNum, e);
 		}
-		log.info("웃긴대학 크롤링 종료. pageNum: {}", pageNum);
+		log.info("HumorUniv crawling success. pageNum: {}", pageNum);
 	}
 }

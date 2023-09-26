@@ -29,7 +29,7 @@ public class EToLandCrawler {
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
-		log.info("이토랜드 크롤링 시작. pageNum: {}", pageNum);
+		log.info("EToland crawling start. pageNum: {}", pageNum);
 		try {
 			final Document document = Jsoup.connect(URL + (pageNum - 1)).get();
 			final Elements liElements = document.select("ul.board_list_ul > li");
@@ -90,12 +90,12 @@ public class EToLandCrawler {
 						// DB 저장
 						humorModifier.save(humor);
 					} catch (Exception e) {
-						log.error("이토랜드 > 유머 > 일간 추천순 크롤링 실패.", e);
+						log.error("EToland > Humor > Order By Daily Like crawling fail.", e);
 					}
 				});
 		} catch (Exception e) {
-			log.info("이토랜드 크롤링 실패. pageNum: {}", pageNum, e);
+			log.info("EToland crawling fail. pageNum: {}", pageNum, e);
 		}
-		log.info("이토랜드 크롤링 종료. pageNum: {}", pageNum);
+		log.info("EToland crawling success. pageNum: {}", pageNum);
 	}
 }

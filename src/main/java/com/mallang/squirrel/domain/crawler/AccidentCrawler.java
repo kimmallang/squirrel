@@ -2,7 +2,6 @@ package com.mallang.squirrel.domain.crawler;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,11 +13,7 @@ import org.springframework.util.StringUtils;
 
 import com.mallang.squirrel.domain.accident.Accident;
 import com.mallang.squirrel.domain.accident.AccidentModifier;
-import com.mallang.squirrel.domain.humor.Humor;
-import com.mallang.squirrel.domain.humor.HumorModifier;
-import com.mallang.squirrel.domain.humor.HumorOriginSiteType;
 import com.mallang.squirrel.util.LocalDateTimeUtil;
-import com.mallang.squirrel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +27,7 @@ public class AccidentCrawler {
 	private final AccidentModifier accidentModifier;
 
 	public void crawl(int pageNum) {
-		log.info("사건사고 크롤링 시작. pageNum: {}", pageNum);
+		log.info("accidents crawling start. pageNum: {}", pageNum);
 		try {
 			final Document document = Jsoup.connect(getUrl(pageNum)).get();
 			Elements liElementList = document.select(".list_body li");
@@ -76,13 +71,13 @@ public class AccidentCrawler {
 					// DB 저장
 					accidentModifier.save(accident);
 				} catch (Exception e) {
-					log.error("네이버뉴스 > 사회 > 사건사고 크롤링 실패.", e);
+					log.error("NaverNews > Society > accidents crawling fail.", e);
 				}
 			});
 		} catch (Exception e) {
-			log.info("사건사고 크롤링 실패. pageNum: {}", pageNum, e);
+			log.info("accidents crawling fail. pageNum: {}", pageNum, e);
 		}
-		log.info("사건사고 크롤링 종료. pageNum: {}", pageNum);
+		log.info("accidents crawling success. pageNum: {}", pageNum);
 	}
 
 	private String getUrl(int page) {

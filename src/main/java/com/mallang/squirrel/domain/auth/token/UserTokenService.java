@@ -46,7 +46,7 @@ public class UserTokenService {
 			final User user = objectMapper.readValue(userDtoString, User.class);
 
 			if (user.getId() != id) {
-				log.error("UserTokenService.convertUtkn({}) fail. 토큰 정보 이상", utkn);
+				log.error("UserTokenService.convertUtkn({}) fail. Invalid Token", utkn);
 				return new User();
 			}
 

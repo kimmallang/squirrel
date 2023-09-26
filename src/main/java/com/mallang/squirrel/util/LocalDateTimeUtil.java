@@ -42,7 +42,7 @@ public class LocalDateTimeUtil {
 
 			return LocalDateTime.parse(date + " " + time, YYYY_MM_DD_HH_mm_ss_SSS);
 		} catch (Exception e) {
-			log.error("날짜 파싱 에러. date={}, time={}", date, time, e);
+			log.error("Date parsing error. date={}, time={}", date, time, e);
 			return null;
 		}
 	}
@@ -70,7 +70,7 @@ public class LocalDateTimeUtil {
 
 			return null;
 		} catch (Exception e) {
-			log.error("날짜 파싱 에러. dateOrTime={}", dateOrTime, e);
+			log.error("Date parsing error. dateOrTime={}", dateOrTime, e);
 			return null;
 		}
 	}
@@ -105,7 +105,7 @@ public class LocalDateTimeUtil {
 
 			return null;
 		} catch (Exception e) {
-			log.error("날짜 파싱 에러. timeStr={}", timeStr, e);
+			log.error("Date parsing error. timeStr={}", timeStr, e);
 			return null;
 		}
 	}
