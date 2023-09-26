@@ -27,7 +27,7 @@ public class UserTokenService {
 	public String generateUtkn(User user) {
 		try {
 			final String userDtoString = objectMapper.writeValueAsString(user);
-			log.info(userDtoString);
+			log.error(userDtoString);
 			final String utknText = userDtoString+ DELIMITER + AES256.encrypt(user.getId().toString() + DELIMITER + getExpiredAt());
 			final byte[] utknBytes = utknText.getBytes(StandardCharsets.UTF_8);
 			return Base64.getEncoder().encodeToString(utknBytes);
@@ -45,7 +45,7 @@ public class UserTokenService {
 			final String decrypted = AES256.decrypt(decodedUtkn.substring(splitIndex + 1));
 			final long id = Long.parseLong(decrypted.split(DELIMITER)[0]);
 			final User user = objectMapper.readValue(userDtoString, User.class);
-			log.info(userDtoString);
+			log.errors(userDtoString);
 
 			if (user.getId() != id) {
 				log.error("UserTokenService.convertUtkn({}) fail. Invalid Token", utkn);
