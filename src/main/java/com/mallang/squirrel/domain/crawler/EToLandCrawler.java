@@ -88,7 +88,7 @@ public class EToLandCrawler {
 						}
 
 						// DB 저장
-						//					humorModifier.save(humor);
+						humorModifier.save(humor);
 					} catch (Exception e) {
 						log.error("이토랜드 > 유머 > 일간 추천순 크롤링 실패.", e);
 					}

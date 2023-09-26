@@ -82,7 +82,7 @@ public class HumorUnivCrawler {
 					}
 
 					// DB 저장
-//					humorModifier.save(humor);
+					humorModifier.save(humor);
 				} catch (Exception e) {
 					log.error("웃긴대학 > 웃긴자료 > 오늘베스트 크롤링 실패.", e);
 				}

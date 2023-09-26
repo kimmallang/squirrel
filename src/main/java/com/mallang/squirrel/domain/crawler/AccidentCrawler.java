@@ -74,7 +74,7 @@ public class AccidentCrawler {
 					}
 
 					// DB 저장
-//					accidentModifier.save(accident);
+					accidentModifier.save(accident);
 				} catch (Exception e) {
 					log.error("네이버뉴스 > 사회 > 사건사고 크롤링 실패.", e);
 				}
