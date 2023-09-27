@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mallang.squirrel.domain.auth.AuthService;
 import com.mallang.squirrel.domain.auth.oauth2.dto.OAuth2Provider;
 import com.mallang.squirrel.domain.auth.user.dto.User;
+import com.mallang.squirrel.domain.auth.user.service.UserService;
 import com.mallang.squirrel.presentation.api.ApiResponse;
 import com.mallang.squirrel.presentation.api.document.ErrorResponse400_404_500;
 import io.swagger.annotations.Api;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 	private final AuthService authService;
+	private final UserService userService;
 
 	@GetMapping("/login/{provider}/url")
 	@ErrorResponse400_404_500
@@ -41,8 +43,9 @@ public class UserController {
 	@ApiOperation(value = "로그인 유저 정보 조회")
 	public ApiResponse<User> getMyInfo(HttpServletRequest request) {
 		final User userDto = (User)request.getAttribute("user");
+		final User user = userService.get(userDto.getId());
 		return ApiResponse.<User>builder()
-			.data(userDto)
+			.data(user)
 			.build();
 	}
 
