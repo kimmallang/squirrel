@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mallang.squirrel.domain.auth.user.repository.UserMapper">
+    <select id="findById" parameterType="Long" resultType="com.mallang.squirrel.domain.auth.user.dto.User">
+        SELECT id, authorized_by, user_id, nickname, profile_image_url, profile_thumbnail_url
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByAuthorizedByAndUserId" parameterType="Map" resultType="com.mallang.squirrel.domain.auth.user.dto.User">
+        SELECT id, authorized_by, user_id, nickname, profile_image_url, profile_thumbnail_url
+        FROM user
+        WHERE authorized_by = #{privider} AND user_id = #{userId}
+    </select>
+</mapper>
