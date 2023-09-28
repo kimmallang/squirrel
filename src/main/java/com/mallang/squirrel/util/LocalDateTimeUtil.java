@@ -49,7 +49,7 @@ public class LocalDateTimeUtil {
 
 	/**
 	 * 날짜 변환
-	 * @param dateOrTime "01-01" or "01:01"
+	 * @param dateOrTime "01/01" or "01-01" or "01:01"
 	 * @return LocalDateTime
 	 */
 	public static LocalDateTime parse(String dateOrTime) {
@@ -65,7 +65,15 @@ public class LocalDateTimeUtil {
 
 			if (dateOrTime.contains("-")) {
 				String year = LocalDateTime.now().format(YYYY);
-				return LocalDateTime.parse(year + "-" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
+				LocalDateTime dateTime = LocalDateTime.parse(year + "-" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
+				return dateTime.isAfter(LocalDateTime.now()) ? dateTime.minusYears(1) : dateTime;
+			}
+
+			if (dateOrTime.contains("/")) {
+				String year = LocalDateTime.now().format(YYYY);
+				dateOrTime = dateOrTime.replaceAll("/", "-");
+				LocalDateTime dateTime = LocalDateTime.parse(year + "-" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
+				return dateTime.isAfter(LocalDateTime.now()) ? dateTime.minusYears(1) : dateTime;
 			}
 
 			return null;
