@@ -3,7 +3,7 @@ $(function(){
     initLogin();
 });
 
-// 왼쪽 메뉴 show/hide
+// 왼쪽 영역 show/hide
 const initAsideSlide = () => {
     const $body = $('body');
     $('#menuBtn').on('click', (e) => {
@@ -13,6 +13,11 @@ const initAsideSlide = () => {
             $body.addClass('menu-show');
         }
     });
+};
+
+// 왼쪽 영역 > 메뉴 on 처리
+const initAsideMenu = () => {
+
 };
 
 // 로그인

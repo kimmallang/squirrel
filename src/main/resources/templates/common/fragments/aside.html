@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="AsideFragment">
+<style>
+    aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a { box-sizing: border-box; display: inline-block; font-size: 13px; padding: 10px; cursor: pointer; width: 100%; }
+    aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a:hover { background-color: #EBFBFF; }
+    aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a.on { background-color: #50C2FF; color: #FFF; }
+</style>
+<script>
+    $(function () {
+        initAsideMenu();
+    });
+
+    // 왼쪽 영역 > 메뉴 on 처리
+    const initAsideMenu = () => {
+        const path = window.location.pathname;
+        console.log(path);
+        if (!path) {
+            return;
+        }
+
+        const menu = $(`div.aside-menu-item a[href="${path}"]`);
+        console.log(menu);
+        if (!menu || menu.length === 0) {
+            return;
+        }
+
+        menu.addClass('on');
+    };
+</script>
     <aside>
         <div class="aside-items-wrapper">
             <div class="login-form">
                 <div id="kakaoLoginBtn" data-provider="kakao">
                     <img th:src="@{/img/kakao_login.png}" />
                 </div>
+                <br>
                 <div id="naverLoginBtn" data-provider="naver">
                     <img th:src="@{/img/naver_login.png}" />
                 </div>
@@ -17,17 +45,35 @@
                 <div class="login-by">
                     <span>Login By <span class="color-blue">...</span></span>
                 </div>
-                <div class="logout">
-                    <span id="logout">로그아웃</span>
+                <div id="logout" class="logout">
+                    <span>로그아웃</span>
                 </div>
-                <div class="label">
-                    <span class="color-bg-blue">내가 쓴 글 00 건</span>
+            </div>
+            <div class="aside-menu-list">
+                <span>실시간 이슈</span>
+                <div class="aside-menu-item">
+                    <a href="/humor">유머</a>
                 </div>
-                <div class="label">
-                    <span class="color-bg-green">내가 쓴 댓글 00 건</span>
+                <div class="aside-menu-item">
+                    <a href="/accident">사건/사고</a>
                 </div>
-                <div class="label">
-                    <span class="color-bg-gray">내가 좋아요한 글 00 건</span>
+            </div>
+            <div class="aside-menu-list">
+                <span>가이드</span>
+                <div class="aside-menu-item">
+                    <a>유튜브 숏츠</a>
+                </div>
+            </div>
+            <div class="aside-menu-list">
+                <span>게시판</span>
+                <div class="aside-menu-item">
+                    <a>자유게시판</a>
+                </div>
+            </div>
+            <div class="aside-menu-list">
+                <span>Contact Us</span>
+                <div class="aside-menu-item">
+                    <a>문의/건의</a>
                 </div>
             </div>
         </div>
