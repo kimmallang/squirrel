@@ -1,5 +1,6 @@
 package com.mallang.squirrel.application.humor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,33 @@ public class HumorService {
 		final int totalCount = humorFinder.countAll();
 		final int totalPage = (totalCount < pageSize) ? 1 : (totalCount - 1) / pageSize + 1;
 		final List<Humor> humorList = humorFinder.findHumors(page, pageSize);
+
+		return HumorListView.builder()
+			.page(page)
+			.pageSize(pageSize)
+			.totalCount(totalCount)
+			.totalPage(totalPage)
+			.humors(humorList.stream()
+				.map(this::convert)
+				.collect(Collectors.toList()))
+			.build();
+	}
+
+	public HumorListView findHumors(int page, int pageSize, String originSiteCode) {
+		final HumorOriginSiteType originSiteType = HumorOriginSiteType.findByCode(originSiteCode);
+		if (originSiteType == null) {
+			return HumorListView.builder()
+				.page(page)
+				.pageSize(pageSize)
+				.totalCount(0)
+				.totalPage(1)
+				.humors(Collections.emptyList())
+				.build();
+		}
+
+		final int totalCount = humorFinder.countAll();
+		final int totalPage = (totalCount < pageSize) ? 1 : (totalCount - 1) / pageSize + 1;
+		final List<Humor> humorList = humorFinder.findHumors(page, pageSize, originSiteType);
 
 		return HumorListView.builder()
 			.page(page)

@@ -43,10 +43,13 @@
                 return;
             }
 
+            let path = window.location.pathname;
+            path = !path || path === '/' ? '/humors' : path;
+
             isLoading = true;
             showLoading();
             $.ajax({
-                url: `/api/humors`,
+                url: `/api${path}`,
                 type: 'get',
                 data: {
                     page: page,

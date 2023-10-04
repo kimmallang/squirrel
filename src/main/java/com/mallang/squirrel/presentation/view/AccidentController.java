@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AccidentController {
-	@GetMapping("/accident")
+	@GetMapping("/accidents")
 	public String humor() {
 		return "pages/accidentList";
 	}

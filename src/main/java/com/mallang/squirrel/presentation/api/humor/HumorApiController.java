@@ -1,6 +1,7 @@
 package com.mallang.squirrel.presentation.api.humor;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +22,26 @@ public class HumorApiController {
 
 	@GetMapping("/humors")
 	@ErrorResponse400_404_500
-	@ApiOperation(value = "유머 목록 조회")
+	@ApiOperation(value = "유머 목록 전체 조회")
 	public ApiResponse<HumorListView> getHumors(
 		@RequestParam(defaultValue = "1") Integer page,
 		@RequestParam(defaultValue = "20") Integer pageSize) {
 
 		final HumorListView humorListView = humorService.findHumors(page, pageSize);
+
+		return ApiResponse.<HumorListView>builder()
+			.data(humorListView)
+			.build();
+	}
+
+	@GetMapping("/humors/{originSiteCode}")
+	@ErrorResponse400_404_500
+	@ApiOperation(value = "유머 목록 사이트별 조회")
+	public ApiResponse<HumorListView> getHumorsByOriginSite(
+		@RequestParam(defaultValue = "1") Integer page,
+		@RequestParam(defaultValue = "20") Integer pageSize,
+		@PathVariable String originSiteCode) {
+		final HumorListView humorListView = humorService.findHumors(page, pageSize, originSiteCode);
 
 		return ApiResponse.<HumorListView>builder()
 			.data(humorListView)

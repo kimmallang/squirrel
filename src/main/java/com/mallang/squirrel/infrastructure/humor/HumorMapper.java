@@ -12,5 +12,5 @@ public interface HumorMapper {
 	Integer countAll();
 	Long findIdByTitle(String title);
 	List<Long> findAllByOrderByCreatedAtAsc(int limit);
-	List<Humor> findAllByPageAndPageSizeOrderByWrittenAtDesc(Map<String, Integer> params);
+	List<Humor> findAllByPageAndPageSizeOrderByWrittenAtDesc(Map<String, Object> params);
 }

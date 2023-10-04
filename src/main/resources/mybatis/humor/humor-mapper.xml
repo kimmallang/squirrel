@@ -26,6 +26,9 @@
                view_count,
                written_at
         FROM humor
+    <if test="originSite != null">
+        WHERE origin_site = #{originSite}
+    </if>
         ORDER BY written_at DESC
         LIMIT #{startNum}, #{pageSize}
     </select>

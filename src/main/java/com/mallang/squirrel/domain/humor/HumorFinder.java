@@ -17,9 +17,20 @@ public class HumorFinder {
 	private final HumorMapper humorMapper;
 
 	public List<Humor> findHumors(int page, int pageSize) {
-		final Map<String, Integer> params = new HashMap<>();
+		final Map<String, Object> params = new HashMap<>();
 		params.put("startNum", pageSize * (page - 1));
 		params.put("pageSize", pageSize);
+
+		final List<Humor> humorList = humorMapper.findAllByPageAndPageSizeOrderByWrittenAtDesc(params);
+
+		return Optional.ofNullable(humorList).orElse(Collections.emptyList());
+	}
+
+	public List<Humor> findHumors(int page, int pageSize, HumorOriginSiteType originSiteType) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("startNum", pageSize * (page - 1));
+		params.put("pageSize", pageSize);
+		params.put("originSite", originSiteType.getCode());
 
 		final List<Humor> humorList = humorMapper.findAllByPageAndPageSizeOrderByWrittenAtDesc(params);
 
