@@ -1,32 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="AsideFragment">
-<style>
-    aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a { box-sizing: border-box; display: inline-block; font-size: 13px; padding: 10px; cursor: pointer; width: 100%; }
-    aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a:hover { background-color: #EBFBFF; }
-    aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a.on { background-color: #50C2FF; color: #FFF; }
-</style>
-<script>
-    $(function () {
-        initAsideMenu();
-    });
-
-    // 왼쪽 영역 > 메뉴 on 처리
-    const initAsideMenu = () => {
-        const path = window.location.pathname;
-        console.log(path);
-        if (!path) {
-            return;
-        }
-
-        const menu = $(`div.aside-menu-item a[href="${path}"]`);
-        console.log(menu);
-        if (!menu || menu.length === 0) {
-            return;
-        }
-
-        menu.addClass('on');
-    };
-</script>
     <aside>
         <div class="aside-items-wrapper">
             <div class="login-form">

@@ -49,6 +49,9 @@ aside > div.aside-items-wrapper > div.aside-profile > div.logout { margin: 0 0 2
 aside > div.aside-items-wrapper > div { min-width: 200px; }
 aside > div.aside-items-wrapper > div.aside-menu-list {  padding: 0 0 20px 0; text-align: left; }
 aside > div.aside-items-wrapper > div.aside-menu-list > span { display: inline-block; font-size: 12px; padding: 10px; color: #888; }
+aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a { box-sizing: border-box; display: inline-block; font-size: 13px; padding: 10px; cursor: pointer; width: 100%; }
+aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a:hover { background-color: #EBFBFF; }
+aside > div.aside-items-wrapper > div.aside-menu-list > div.aside-menu-item a.on { background-color: #50C2FF; color: #FFF; }
 
 body.menu-show aside { width: 260px; transition: width 0.3s; }
 body:not(.menu-show) aside { width: 0; transition: width 0.3s; }

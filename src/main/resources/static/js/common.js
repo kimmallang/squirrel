@@ -1,6 +1,7 @@
 $(function(){
     initAsideSlide();
     initLogin();
+    initAsideMenu();
 });
 
 // 왼쪽 영역 show/hide
@@ -17,7 +18,17 @@ const initAsideSlide = () => {
 
 // 왼쪽 영역 > 메뉴 on 처리
 const initAsideMenu = () => {
+    const path = window.location.pathname;
+    if (!path) {
+        return;
+    }
 
+    const menu = $(`div.aside-menu-item a[href="${path}"]`);
+    if (!menu || menu.length === 0) {
+        return;
+    }
+
+    menu.addClass('on');
 };
 
 // 로그인
