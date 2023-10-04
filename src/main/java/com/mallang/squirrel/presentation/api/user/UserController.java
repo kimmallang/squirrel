@@ -43,6 +43,12 @@ public class UserController {
 	@ApiOperation(value = "로그인 유저 정보 조회")
 	public ApiResponse<User> getMyInfo(HttpServletRequest request) {
 		final User userDto = (User)request.getAttribute("user");
+		if (userDto == null) {
+			return ApiResponse.<User>builder()
+				.data(null)
+				.build();
+		}
+
 		final User user = userService.get(userDto.getId());
 		return ApiResponse.<User>builder()
 			.data(user)
