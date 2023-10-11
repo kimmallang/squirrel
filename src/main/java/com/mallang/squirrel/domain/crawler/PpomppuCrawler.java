@@ -84,7 +84,7 @@ public class PpomppuCrawler {
 						// DB 저장
 						humorModifier.save(humor);
 					} catch (Exception e) {
-						log.error("Bobaedream > community > Best crawling fail.", e);
+						log.error("Ppomppu > community > Best crawling fail.", e);
 					}
 				});
 		} catch (Exception e) {

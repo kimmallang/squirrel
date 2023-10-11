@@ -8,11 +8,18 @@ $(function(){
 // 왼쪽 영역 show/hide
 const initAsideSlide = () => {
     const $body = $('body');
+    // PC는 기본값이 노출(모바일은 비노출)
+    if (window.screen.width > 767) {
+        $body.addClass('menu-show').addClass('menu-show-ani');
+    }
+
     $('#menuBtn').on('click', (e) => {
-        if ($body.hasClass('menu-show')) {
-            $body.removeClass('menu-show');
+        $body.removeClass('menu-show');
+
+        if ($body.hasClass('menu-show-ani')) {
+            $body.removeClass('menu-show-ani');
         } else {
-            $body.addClass('menu-show');
+            $body.addClass('menu-show-ani');
         }
     });
 };
@@ -86,11 +93,12 @@ const initLogin = () => {
             return;
         }
 
+        $('.aside-menu-list').hide(); // 깜빡임 방지
         $.ajax({
             url:`/api/user/my-info`,
             type:'get',
             success: function(res) {
-                console.log('login-info call')
+                $('.aside-menu-list').show(); // 깜빡임 방지
                 if (!res.data) {
                     $('.login-form').show();
                     $('.aside-profile').hide();
