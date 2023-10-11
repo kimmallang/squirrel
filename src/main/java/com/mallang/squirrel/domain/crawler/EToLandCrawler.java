@@ -94,7 +94,7 @@ public class EToLandCrawler {
 					}
 				});
 		} catch (Exception e) {
-			log.info("EToland crawling fail. pageNum: {}", pageNum, e);
+			log.error("EToland crawling fail. pageNum: {}", pageNum, e);
 		}
 		log.info("EToland crawling success. pageNum: {}", pageNum);
 	}

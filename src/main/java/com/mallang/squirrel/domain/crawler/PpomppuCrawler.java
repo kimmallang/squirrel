@@ -1,5 +1,7 @@
 package com.mallang.squirrel.domain.crawler;
 
+import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,35 +21,31 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class BobaedreamCrawler {
-	private static final HumorOriginSiteType ORIGIN_SITE = HumorOriginSiteType.BOBAEDREAM;
-	private static final String ORIGIN = "https://www.bobaedream.co.kr";
-	private static final String URL = ORIGIN + "/list?code=best&page=";
+public class PpomppuCrawler {
+	private static final HumorOriginSiteType ORIGIN_SITE = HumorOriginSiteType.PPOMPPU;
+	private static final String ORIGIN = "https://www.ppomppu.co.kr";
+	private static final String URL = ORIGIN + "/hot.php?id=humor&category=999&page=";
 
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
-		log.info("Bobaedream crawling start. pageNum: {}", pageNum);
+		log.info("Ppomppu crawling start. pageNum: {}", pageNum);
 		try {
 			final Document document = Jsoup.connect(URL + (pageNum - 1)).get();
-			final Elements trElements = document.select("table#boardlist tr");
+			final Elements trElements = document.select("table.board_table tr.line");
 
 			if (CollectionUtils.isEmpty(trElements)) {
 				return;
 			}
 
 			trElements.stream()
-				.filter(trElement -> {
-					final Element categoryElement = trElement.selectFirst("td.category");
-					return categoryElement != null && "유머게시판".equals(categoryElement.text());
-				})
 				.forEach(trElement -> {
 					try {
 						final Humor humor = new Humor();
 						humor.setOriginSite(ORIGIN_SITE.getCode());
 
 						// 게시글 URL + 제목
-						final Element subjectElement = trElement.selectFirst("a.bsubject");
+						final Element subjectElement = trElement.selectFirst("a.title");
 						if (subjectElement == null) {
 							return;
 						}
@@ -65,19 +63,20 @@ public class BobaedreamCrawler {
 						}
 
 						// 작성일시
-						Element dateElement = trElement.selectFirst("td.date");
+						List<Element> dateElementList =trElement.select("td.board_date");
+						Element dateElement = dateElementList.get(0);
 						if (dateElement != null) {
 							humor.setWrittenAt(LocalDateTimeUtil.parse(dateElement.text()));
 						}
 
 						// 추천수
-						Element likeCountElement = trElement.selectFirst("td.recomm");
+						Element likeCountElement = dateElementList.get(1);
 						if (likeCountElement != null) {
-							humor.setLikeCount(StringUtil.parseInteger(likeCountElement.text()));
+							humor.setLikeCount(StringUtil.parseInteger(likeCountElement.text().split(" - ")[0]));
 						}
 
 						// 조회수
-						Element viewCountElement = trElement.selectFirst("td.count");
+						Element viewCountElement = dateElementList.get(2);
 						if (viewCountElement != null) {
 							humor.setViewCount(StringUtil.parseInteger(viewCountElement.text()));
 						}
@@ -89,8 +88,8 @@ public class BobaedreamCrawler {
 					}
 				});
 		} catch (Exception e) {
-			log.error("Bobaedream crawling fail. pageNum: {}", pageNum, e);
+			log.error("Ppomppu crawling fail. pageNum: {}", pageNum, e);
 		}
-		log.info("Bobaedream crawling success. pageNum: {}", pageNum);
+		log.info("Ppomppu crawling success. pageNum: {}", pageNum);
 	}
 }

@@ -88,7 +88,7 @@ public class HumorUnivCrawler {
 				}
 			});
 		} catch (Exception e) {
-			log.info("HumorUniv crawling fail. pageNum: {}", pageNum, e);
+			log.error("HumorUniv crawling fail. pageNum: {}", pageNum, e);
 		}
 		log.info("HumorUniv crawling success. pageNum: {}", pageNum);
 	}

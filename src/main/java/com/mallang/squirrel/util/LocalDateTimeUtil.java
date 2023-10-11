@@ -49,31 +49,33 @@ public class LocalDateTimeUtil {
 
 	/**
 	 * 날짜 변환
-	 * @param dateOrTime "01/01" or "01-01" or "01:01"
+	 * @param dateOrTime "23/12/31" or "12/31" or "23-12-31" or "12-31" or "12:59:59" or "12:59"
 	 * @return LocalDateTime
 	 */
 	public static LocalDateTime parse(String dateOrTime) {
 		try {
-			if (!StringUtils.hasText(dateOrTime) || dateOrTime.length() != 5) {
+			if (!StringUtils.hasText(dateOrTime) || (dateOrTime.length() != 5 && dateOrTime.length() != 8)) {
 				return null;
 			}
 
 			if (dateOrTime.contains(":")) {
 				String date = LocalDateTime.now().format(YYYY_MM_DD);
-				return LocalDateTime.parse(date + " " + dateOrTime, YYYY_MM_DD_HH_mm);
+				if (dateOrTime.length() == 5) {
+					return LocalDateTime.parse(date + " " + dateOrTime, YYYY_MM_DD_HH_mm);
+				}
+
+				return LocalDateTime.parse(date + " " + dateOrTime, YYYY_MM_DD_HH_mm_ss);
 			}
 
-			if (dateOrTime.contains("-")) {
-				String year = LocalDateTime.now().format(YYYY);
-				LocalDateTime dateTime = LocalDateTime.parse(year + "-" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
-				return dateTime.isAfter(LocalDateTime.now()) ? dateTime.minusYears(1) : dateTime;
-			}
-
-			if (dateOrTime.contains("/")) {
-				String year = LocalDateTime.now().format(YYYY);
+			if (dateOrTime.contains("-") || dateOrTime.contains("/")) {
 				dateOrTime = dateOrTime.replaceAll("/", "-");
-				LocalDateTime dateTime = LocalDateTime.parse(year + "-" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
-				return dateTime.isAfter(LocalDateTime.now()) ? dateTime.minusYears(1) : dateTime;
+
+				if (dateOrTime.length() == 5) {
+					String year = LocalDateTime.now().format(YYYY);
+					return LocalDateTime.parse(year + "-" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
+				}
+
+				return LocalDateTime.parse("20" + dateOrTime + " 00:00", YYYY_MM_DD_HH_mm);
 			}
 
 			return null;

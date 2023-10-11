@@ -75,7 +75,7 @@ public class AccidentCrawler {
 				}
 			});
 		} catch (Exception e) {
-			log.info("accidents crawling fail. pageNum: {}", pageNum, e);
+			log.error("accidents crawling fail. pageNum: {}", pageNum, e);
 		}
 		log.info("accidents crawling success. pageNum: {}", pageNum);
 	}
