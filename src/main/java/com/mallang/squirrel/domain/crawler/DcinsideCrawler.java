@@ -19,35 +19,31 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class BobaedreamCrawler {
-	private static final HumorOriginSiteType ORIGIN_SITE = HumorOriginSiteType.BOBAEDREAM;
-	private static final String ORIGIN = "https://www.bobaedream.co.kr";
-	private static final String URL = ORIGIN + "/list?code=best&page=";
+public class DcinsideCrawler {
+	private static final HumorOriginSiteType ORIGIN_SITE = HumorOriginSiteType.DCINSIDE;
+	private static final String ORIGIN = "https://gall.dcinside.com";
+	private static final String URL = ORIGIN + "/board/lists?id=dcbest&exception_mode=recommend&_dcbest=1&page=";
 
 	private final HumorModifier humorModifier;
 
 	public void crawl(int pageNum) {
-		log.info("Bobaedream crawling start. pageNum: {}", pageNum);
+		log.info("Dcinside crawling start. pageNum: {}", pageNum);
 		try {
 			final Document document = Jsoup.connect(URL + (pageNum - 1)).get();
-			final Elements trElements = document.select("table#boardlist tr");
+			final Elements trElements = document.select("table.gall_list tr.ub-content.us-post");
 
 			if (CollectionUtils.isEmpty(trElements)) {
 				return;
 			}
 
-			trElements.stream()
-				.filter(trElement -> {
-					final Element categoryElement = trElement.selectFirst("td.category");
-					return categoryElement != null && "유머게시판".equals(categoryElement.text());
-				})
+			trElements
 				.forEach(trElement -> {
 					try {
 						final Humor humor = new Humor();
 						humor.setOriginSite(ORIGIN_SITE.getCode());
 
 						// 게시글 URL + 제목
-						final Element subjectElement = trElement.selectFirst("a.bsubject");
+						final Element subjectElement = trElement.selectFirst("td.gall_tit.ub-word a");
 						if (subjectElement == null) {
 							return;
 						}
@@ -60,24 +56,26 @@ public class BobaedreamCrawler {
 
 						// 제목
 						final String title = subjectElement.text();
-						if (StringUtils.hasText(title)) {
-							humor.setTitle(StringUtils.trimWhitespace(title));
+						if (!StringUtils.hasText(title) || !title.contains("[싱갤]")) {
+							return;
 						}
+						humor.setTitle(StringUtils.trimWhitespace(title.replaceAll("\\[싱갤\\] ", "")));
 
 						// 작성일시
-						Element dateElement = trElement.selectFirst("td.date");
+						Element dateElement = trElement.selectFirst("td.gall_date");
 						if (dateElement != null) {
-							humor.setWrittenAt(LocalDateTimeUtil.parse(dateElement.text()));
+							String[] datetime = dateElement.attr("title").split(" ");
+							humor.setWrittenAt(LocalDateTimeUtil.parse(datetime[0], datetime[1]));
 						}
 
 						// 추천수
-						Element likeCountElement = trElement.selectFirst("td.recomm");
+						Element likeCountElement = trElement.selectFirst("td.gall_recommend");
 						if (likeCountElement != null) {
 							humor.setLikeCount(StringUtil.parseInteger(likeCountElement.text()));
 						}
 
 						// 조회수
-						Element viewCountElement = trElement.selectFirst("td.count");
+						Element viewCountElement = trElement.selectFirst("td.gall_count");
 						if (viewCountElement != null) {
 							humor.setViewCount(StringUtil.parseInteger(viewCountElement.text()));
 						}
@@ -85,12 +83,12 @@ public class BobaedreamCrawler {
 						// DB 저장
 						humorModifier.save(humor);
 					} catch (Exception e) {
-						log.error("Bobaedream > community > Best crawling fail.", e);
+						log.error("Dcinside > community > Best crawling fail.", e);
 					}
 				});
 		} catch (Exception e) {
-			log.error("Bobaedream crawling fail. pageNum: {}", pageNum, e);
+			log.error("Dcinside crawling fail. pageNum: {}", pageNum, e);
 		}
-		log.info("Bobaedream crawling success. pageNum: {}", pageNum);
+		log.info("Dcinside crawling success. pageNum: {}", pageNum);
 	}
 }

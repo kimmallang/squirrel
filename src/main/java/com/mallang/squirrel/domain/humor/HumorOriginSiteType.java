@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum HumorOriginSiteType {
 	ETOLAND("이토랜드", "etoland"),
 	HUMORUNIV("웃긴대학", "humoruniv"),
-	BOBAEDREAM("보배드림", "bobaedream"),
+	DCINSIDE("디시인사이드", "dcinside"),
 	PPOMPPU("뽐뿌", "ppomppu");
 
 	private final String name;

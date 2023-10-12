@@ -38,7 +38,7 @@ public class PpomppuCrawler {
 				return;
 			}
 
-			trElements.stream()
+			trElements
 				.forEach(trElement -> {
 					try {
 						final Humor humor = new Humor();

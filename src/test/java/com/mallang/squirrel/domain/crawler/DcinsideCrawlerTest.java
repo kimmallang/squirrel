@@ -8,14 +8,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.mallang.squirrel.domain.humor.HumorModifier;
 
 @ExtendWith(MockitoExtension.class)
-public class BobaedreamCrawlerTest {
+public class DcinsideCrawlerTest {
 	@Mock
 	private HumorModifier humorModifier;
 
 	@Test
 	public void test() {
-		final BobaedreamCrawler bobaedreamCrawler = new BobaedreamCrawler(humorModifier);
+		final DcinsideCrawler dcinsideCrawler = new DcinsideCrawler(humorModifier);
 
-		bobaedreamCrawler.crawl(1);
+		dcinsideCrawler.crawl(1);
 	}
 }

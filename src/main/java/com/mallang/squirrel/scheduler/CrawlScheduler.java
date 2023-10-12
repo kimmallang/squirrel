@@ -11,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 public class CrawlScheduler {
 	private final CrawlerService crawlerService;
 
-	@Scheduled(cron = "0 0 0/1 * * *")
+	@Scheduled(cron = "0 3 0/1 * * *")
 	public void crawlHumor() {
 		crawlerService.crawlHumor(1, 10);
 	}
 
-	@Scheduled(cron = "0 10 0/1 * * *")
+	@Scheduled(cron = "0 3 0/1 * * *")
 	public void crawlAccident() {
 		crawlerService.crawlAccident(1, 10);
 	}

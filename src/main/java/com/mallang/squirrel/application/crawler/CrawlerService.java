@@ -3,7 +3,7 @@ package com.mallang.squirrel.application.crawler;
 import org.springframework.stereotype.Service;
 
 import com.mallang.squirrel.domain.crawler.AccidentCrawler;
-import com.mallang.squirrel.domain.crawler.BobaedreamCrawler;
+import com.mallang.squirrel.domain.crawler.DcinsideCrawler;
 import com.mallang.squirrel.domain.crawler.EToLandCrawler;
 import com.mallang.squirrel.domain.crawler.HumorUnivCrawler;
 import com.mallang.squirrel.domain.crawler.PpomppuCrawler;
@@ -15,7 +15,7 @@ public class CrawlerService {
 	// 유머
 	private final EToLandCrawler eToLandCrawler;
 	private final HumorUnivCrawler humorUnivCrawler;
-	private final BobaedreamCrawler bobaedreamCrawler;
+	private final DcinsideCrawler dcinsideCrawler;
 	private final PpomppuCrawler ppomppuCrawler;
 
 	// 사건사고
@@ -25,7 +25,7 @@ public class CrawlerService {
 		for (int pageNum = startPage; pageNum <= endPage; pageNum++) {
 			eToLandCrawler.crawl(pageNum);
 			humorUnivCrawler.crawl(pageNum);
-			bobaedreamCrawler.crawl(pageNum);
+			dcinsideCrawler.crawl(pageNum);
 			ppomppuCrawler.crawl(pageNum);
 		}
 	}
