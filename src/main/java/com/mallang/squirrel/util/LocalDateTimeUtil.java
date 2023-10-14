@@ -49,7 +49,7 @@ public class LocalDateTimeUtil {
 
 	/**
 	 * 날짜 변환
-	 * @param dateOrTime "23/12/31" or "12/31" or "23-12-31" or "12-31" or "12:59:59" or "12:59"
+	 * @param dateOrTime "23/12/31" or "12/31" or "23-12-31" or "12-31" or "23.12.31" or "12.31" or "12:59:59" or "12:59"
 	 * @return LocalDateTime
 	 */
 	public static LocalDateTime parse(String dateOrTime) {
@@ -67,8 +67,10 @@ public class LocalDateTimeUtil {
 				return LocalDateTime.parse(date + " " + dateOrTime, YYYY_MM_DD_HH_mm_ss);
 			}
 
-			if (dateOrTime.contains("-") || dateOrTime.contains("/")) {
-				dateOrTime = dateOrTime.replaceAll("/", "-");
+			if (dateOrTime.contains("-") || dateOrTime.contains("/") || dateOrTime.contains(".")) {
+				dateOrTime = dateOrTime
+					.replaceAll("/", "-")
+					.replaceAll("\\.", "-");
 
 				if (dateOrTime.length() == 5) {
 					String year = LocalDateTime.now().format(YYYY);

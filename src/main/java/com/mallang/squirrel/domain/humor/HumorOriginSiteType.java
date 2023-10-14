@@ -9,7 +9,8 @@ public enum HumorOriginSiteType {
 	ETOLAND("이토랜드", "etoland"),
 	HUMORUNIV("웃긴대학", "humoruniv"),
 	DCINSIDE("디시인사이드", "dcinside"),
-	PPOMPPU("뽐뿌", "ppomppu");
+	PPOMPPU("뽐뿌", "ppomppu"),
+	THEQOO("더쿠", "theqoo");
 
 	private final String name;
 	private final String code;

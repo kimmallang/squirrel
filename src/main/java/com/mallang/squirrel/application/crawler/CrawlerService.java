@@ -7,6 +7,7 @@ import com.mallang.squirrel.domain.crawler.DcinsideCrawler;
 import com.mallang.squirrel.domain.crawler.EToLandCrawler;
 import com.mallang.squirrel.domain.crawler.HumorUnivCrawler;
 import com.mallang.squirrel.domain.crawler.PpomppuCrawler;
+import com.mallang.squirrel.domain.crawler.TheqooCrawler;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,6 +18,7 @@ public class CrawlerService {
 	private final HumorUnivCrawler humorUnivCrawler;
 	private final DcinsideCrawler dcinsideCrawler;
 	private final PpomppuCrawler ppomppuCrawler;
+	private final TheqooCrawler theqooCrawler;
 
 	// 사건사고
 	private final AccidentCrawler accidentCrawler;
@@ -27,6 +29,7 @@ public class CrawlerService {
 			humorUnivCrawler.crawl(pageNum);
 			dcinsideCrawler.crawl(pageNum);
 			ppomppuCrawler.crawl(pageNum);
+			theqooCrawler.crawl(pageNum);
 		}
 	}
 
