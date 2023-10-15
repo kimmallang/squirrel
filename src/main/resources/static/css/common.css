@@ -27,11 +27,11 @@ input[type=button] { width: initial; cursor: pointer; }
 
 /* top-menu */
 header { position: fixed; top: 0; left: 0; width: 100%; padding: 10px 0; border-bottom: 1px solid #46FFFF; background-color: #FFF; z-index: 90; height: 40px; text-align: center; }
-header > div#menuBtn { position: fixed; left: 0; top: 6px; padding: 6px; color: #50C2FF; cursor: pointer; }
+header > div#menuBtn { position: fixed; left: 0; top: 6px; padding: 6px; color: #50C2FF; cursor: pointer; z-index: 999; background-color: #FFF; }
 header > div#menuBtn span.material-symbols-outlined { font-size: 36px; }
-header > div#categoryList { padding-top: 10px; }
-header > div#categoryList > a { border-radius: 100px; margin-left: 4px; background-color: #EEE; padding: 10px 15px; cursor: pointer; }
-header > div#categoryList > a.selected { background-color: #C0FFFF; }
+header > div#categoryList { position: fixed; top:0; left: 0; padding-top: 10px; width: 100%; box-sizing: border-box; }
+header > div#categoryList div.selected span { background-color: #C0FFFF; }
+header > div#categoryList span { display: inline-block; border-radius: 100px; margin-left: 4px; background-color: #EEE; padding: 10px 20px; cursor: pointer; }
 
 /* left-menu */
 aside { position: fixed; top: 0; left: 0; height: 100%; padding-top: 60px; background-color: #FFF; z-index: 80; text-align: center; overflow-y: auto; }

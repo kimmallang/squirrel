@@ -1,16 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="HeaderFragment">
+
+    <!--https://naver.github.io/egjs-flicking/ko/docs-->
+    <script src="https://unpkg.com/@egjs/flicking/dist/flicking.pkgd.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@egjs/flicking/dist/flicking.css" crossorigin="anonymous" />
+    <script>
+        const humors = [
+            { index: 0, url: '/api/humors', name: '전체' },
+            { index: 1, url: '/api/humors/humoruniv', name: '웃긴대학' },
+            { index: 2, url: '/api/humors/etoland', name: '이토랜드' },
+            { index: 3, url: '/api/humors/dcinside', name: '디시인사이드' },
+            { index: 4, url: '/api/humors/theqoo', name: '더쿠' },
+            { index: 5, url: '/api/humors/dcinside', name: '디시인사이드' },
+        ];
+
+        const isHumors = window.location.pathname === '/' || window.location.pathname.startsWith('/humors');
+
+        const initCategoryList = () => {
+            const $categoryList = $('#categoryList > div');
+            $categoryList.html('');
+
+            if (isHumors) {
+                humors.forEach(humor => {
+                    const classNames = humor.index === 0 ? 'flicking-panel selected' : 'flicking-panel';
+                    $categoryList.append(`<div class="${classNames}" data-index=${humor.index} data-url="${humor.url}"><span>${humor.name}</span></div>`);
+                });
+			}
+
+            loadItems();
+        };
+
+        const loadItems = () => {
+            if (isHumors) {
+                initHumor();
+                loadHumor();
+            }
+        };
+
+        const applyCarousel = () => {
+            const flicking = new Flicking("#categoryList", {
+                preventClickOnDrag: true,
+                changeOnHold: true,
+            });
+            flicking.on('changed', e => {
+                $('#categoryList > div > div').removeClass('selected');
+                $(`#categoryList > div > div`).eq(flicking.index).addClass('selected');
+                loadItems();
+            });
+
+            $('#categoryList .flicking-panel:not(.selected)').on('click', function () {
+                const index = $(this).data('index');
+                flicking.moveTo(index);
+            });
+		};
+
+        $(function() {
+            initCategoryList(0);
+            applyCarousel();
+        });
+    </script>
+
     <header>
         <div id="menuBtn">
             <span class="material-symbols-outlined">side_navigation</span>
         </div>
-        <div id="categoryList">
-            <a href="/humors">전체</a>
-            <a href="/humors/humoruniv">웃긴대학</a>
-            <a href="/humors/etoland">이토랜드</a>
-            <a href="/humors/dcinside">디시인사이드</a>
-            <a href="/humors/theqoo">더쿠</a>
-            <a href="/humors/ppomppu">뽐뿌</a>
+        <div id="categoryList" class="flicking-viewport">
+            <div class="flicking-camera">
+				<!-- 동적 생성 -->
+            </div>
         </div>
     </header>
 </html>

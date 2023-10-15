@@ -2,7 +2,6 @@ $(function(){
     initAsideSlide();
     initLogin();
     initAsideMenu();
-    initHeaderMenu();
 });
 
 // 왼쪽 영역 show/hide
@@ -30,16 +29,6 @@ const initAsideMenu = () => {
         $(`aside a[href="/humors"]`).addClass('on');
     } else if (path.startsWith('/accidents')) {
         $(`aside a[href="/accidents"]`).addClass('on');
-    }
-};
-
-// 헤더 영역 > 메뉴 on 처리
-const initHeaderMenu = () => {
-    const path = window.location.pathname;
-    if (!path || path === '/') {
-        $(`header a[href="/humors"]`).addClass('selected');
-    } else {
-        $(`header a[href="${path}"]`).addClass('selected');
     }
 };
 

@@ -15,12 +15,12 @@
         let isLoading = false;
         let isLast = false;
 
-        $(function () {
-            init();
-            loadHumor();
-        });
+        const initHumor = () => {
+            page = 1;
 
-        const init = () => {
+            // 렌더링 목록 초기화
+            $('#humor-list').html('');
+
             // url 이동 클릭 이벤트
             $('#humor-list').on('click', '.item', function () {
                 const url = $(this).data('url');
@@ -43,13 +43,12 @@
                 return;
             }
 
-            let path = window.location.pathname;
-            path = !path || path === '/' ? '/humors' : path;
+            const path = $('div.flicking-panel.selected').data('url');
 
             isLoading = true;
             showLoading();
             $.ajax({
-                url: `/api${path}`,
+                url: path,
                 type: 'get',
                 data: {
                     page: page,
